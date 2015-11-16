@@ -52,16 +52,23 @@ bool MainMenuScene::init()
 
 	// Creating Menu
 
-	auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
+	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/Play_Button.png", "images/MainMenuScreen/Play_Button(Click).png", CC_CALLBACK_1(MainMenuScene::startGame, this));
-
-	auto menu = Menu::create(menuTitle, playItem, NULL);
-	menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
-	addChild(menu, 1);
+	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::startGame, this));
+	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::startGame, this));
 
 
-	auto background = Sprite::create("images/MainMenuScreen/Background.png");
+	auto play = Menu::create(playItem, NULL);
+	auto option = Menu::create(optionItem, NULL);
+
+	play->setPosition(Vec2(560, 100));
+	option->setPosition(Vec2(780, 100));
+	
+	addChild(play, 1);
+	addChild(option, 1);
+
+
+	auto background = Sprite::create("images/MainMenuScreen/Background.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
