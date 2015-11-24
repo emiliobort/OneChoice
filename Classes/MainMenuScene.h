@@ -12,6 +12,8 @@ public:
 
 	void pauseMusic();
 
+	void MainMenuScene::optionsMenu(Ref *pSender);
+
 	void startGame(Ref *pSender);
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();

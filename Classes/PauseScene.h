@@ -3,8 +3,12 @@
 
 #include "cocos2d.h"
 
+USING_NS_CC;
+
 class PauseScene : public cocos2d::Layer
 {
+private:
+	Label *_Text;
 public:
 
 	void resumeGameScene(Ref *pSender);

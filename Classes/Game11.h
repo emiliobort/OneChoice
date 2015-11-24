@@ -11,8 +11,9 @@ private:
 
 	int _score = 0;
 	Label *_labelScore;
+	Label *_timer;
 	int _aux = 0;
-
+	int _time=0;
 
 public:
 	//Sprite del jugador
@@ -21,9 +22,12 @@ public:
 	//Sprite boton
 	Sprite *_button;
 
+	//timer
+	void timer(float dt);
+
+
 	//Funcion que controla el boton que se pulsa
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event);
-
 
 	void contador();
 

@@ -1,6 +1,8 @@
 #include "PauseScene.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
+#include "Game11.h"
+#include "Global.h"
 
 
 USING_NS_CC;
@@ -26,25 +28,26 @@ void PauseScene::resumeGameScene(Ref *pSender){
 }
 
 void PauseScene::goToMainMenu(Ref *pSender){
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = MainMenuScene::createScene();
 
-	Director::getInstance()->popScene();
+	//Director::getInstance()->popScene();
 	Director::getInstance()->replaceScene(scene);
 
 }
 
 void PauseScene::retryGameScene(Ref *pSender){
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = GameScene::createScene();
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = Game11::createScene();
 
-	Director::getInstance()->popScene();
+	//Director::getInstance()->popScene();
 	Director::getInstance()->replaceScene(scene);
 }
 
 // on "init" you need to initialize your instance
 bool PauseScene::init()
 {
+	//int level1 = Global::_test;
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -72,6 +75,12 @@ bool PauseScene::init()
 		(visibleSize.height / 2)));
 
 	addChild(background, 0);
+
+	__String *text = __String::createWithFormat("Score %d    ", Global::_test);
+	_Text = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
+	_Text->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
+
+	addChild(_Text, 1);
 
 	return true;
 }
