@@ -1,22 +1,18 @@
-#ifndef __PAUSE_SCENE_H__
-#define __PAUSE_SCENE_H__
+#ifndef __SELECT_SCENE_H__
+#define __SELECT_SCENE_H__
 
 #include "cocos2d.h"
-USING_NS_CC;
+#include "SimpleAudioEngine.h"
 
-class PauseScene : public cocos2d::Layer
+class SelectScene : public cocos2d::Layer
 {
-
-private:
-	Label *_game1;
-
 public:
 
-	void resumeGameScene(Ref *pSender);
-	void goToMainMenu(Ref *pSender);
-	void retryGameScene(Ref *pSender);
+	bool musicMuted;
 
+	void pauseMusic();
 
+	void startGame(Ref *pSender);
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -24,7 +20,7 @@ public:
     virtual bool init();
     
     // implement the "static create()" method manually
-    CREATE_FUNC(PauseScene);
+    CREATE_FUNC(SelectScene);
 };
 
-#endif // __PAUSE_SCENE_H__
+#endif // __MAINMENU_SCENE_H__

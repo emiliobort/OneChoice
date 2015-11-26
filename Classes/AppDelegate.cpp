@@ -1,4 +1,5 @@
 #include "AppDelegate.h"
+#include "MainMenuScene.h"
 #include "Prueba.h"
 
 USING_NS_CC;

@@ -11,9 +11,11 @@ private:
 
 	int _score = 0;
 	Label *_labelScore;
-	Label *_timer;
 	int _aux = 0;
-	int _time=0;
+
+	int _time = 0;
+	Label *_timer;
+
 
 public:
 	//Sprite del jugador
@@ -22,18 +24,17 @@ public:
 	//Sprite boton
 	Sprite *_button;
 
-	//timer
-	void timer(float dt);
-
-
 	//Funcion que controla el boton que se pulsa
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event);
+
 
 	void contador();
 
 	void Game11::goToOptionA(Ref *pSender);
 
 	void Game11::goToOptionB(Ref *pSender);
+
+	void Game11::timer(float dt);
 
 	//Funcion para crear la escena
 	static cocos2d::Scene* createScene();

@@ -28,7 +28,7 @@ void PauseScene::resumeGameScene(Ref *pSender){
 }
 
 void PauseScene::goToMainMenu(Ref *pSender){
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = MainMenuScene::createScene();
 
 	//Director::getInstance()->popScene();
@@ -37,7 +37,7 @@ void PauseScene::goToMainMenu(Ref *pSender){
 }
 
 void PauseScene::retryGameScene(Ref *pSender){
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = Game11::createScene();
 
 	//Director::getInstance()->popScene();
@@ -47,7 +47,6 @@ void PauseScene::retryGameScene(Ref *pSender){
 // on "init" you need to initialize your instance
 bool PauseScene::init()
 {
-	//int level1 = Global::_test;
     //////////////////////////////
     // 1. super init first
     if ( !Layer::init() )
@@ -76,11 +75,11 @@ bool PauseScene::init()
 
 	addChild(background, 0);
 
+
 	__String *text = __String::createWithFormat("Score %d    ", Global::_test);
-	_Text = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_Text->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
+	_game1 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
+	_game1->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
 
-	addChild(_Text, 1);
-
+	addChild(_game1,1);
 	return true;
 }

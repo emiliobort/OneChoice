@@ -56,13 +56,15 @@ void Game11::contador()
 	}
 	if (_score == 30)
 	{
+
 		_playerSprite->setTexture("images/Game1.1/rueda4.png");
 		_button->setTexture("images/Game1.1/right1.png");
 		_aux = 3;
 	}
 	if (_score == 31) //para comprobar que funciona
 	{
-		Global::_test = 1; //ojo a esto!!
+
+		Global::_test = 1;
 		Game11::goToOptionA(this);
 	}
 
@@ -134,7 +136,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 void Game11::timer(float dt) {
 	_time++;
 
-	__String *tiempo = __String::createWithFormat("time %d    ", _time);
+	String *tiempo = String::createWithFormat("time %d    ", _time);
 	_timer->setString(tiempo->getCString());
 
 }
@@ -201,12 +203,13 @@ bool Game11::init()
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
+
 	//Coloca el Label donde se encuentra la puntuacion (numero de clicks ahora mismo)
-	__String *text = __String::createWithFormat("Score %d    ", _time);
+	__String *text = __String::createWithFormat("Score %d    ", _score);
 	_labelScore = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
 	_labelScore->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
 
-	__String *tiempo = __String::createWithFormat("time %d    ", _time);
+	String *tiempo = String::createWithFormat("time %d    ", _time);
 	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/Marker Felt.ttf", 24);
 	_timer->setPosition(Vec2(150, visibleSize.height - 30));
 
@@ -215,5 +218,7 @@ bool Game11::init()
 	addChild(_labelScore, 1);
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game11::timer), 1.0);
+
 	return true;
 }
+

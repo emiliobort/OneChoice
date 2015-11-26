@@ -1,19 +1,19 @@
+#include "SelectScene.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
-#include "SelectScene.h"
 #include "Game11.h"
-#include "PauseScene.h"
+
 
 USING_NS_CC;
 
 
-Scene* MainMenuScene::createScene()
+Scene* SelectScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = MainMenuScene::create();
+    auto layer = SelectScene::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -22,23 +22,14 @@ Scene* MainMenuScene::createScene()
     return scene;
 }
 
-
-void MainMenuScene::selectGame(Ref *pSender) {
+void SelectScene::startGame(Ref *pSender){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = SelectScene::createScene();
+	auto scene = Game11::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
-void MainMenuScene::optionScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = PauseScene::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
-}
-
-
-void MainMenuScene::pauseMusic(){
+void SelectScene::pauseMusic(){
 	if (musicMuted)
 	{
 		CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
@@ -50,7 +41,7 @@ void MainMenuScene::pauseMusic(){
 }
 
 // on "init" you need to initialize your instance
-bool MainMenuScene::init()
+bool SelectScene::init()
 {
 	//////////////////////////////
 	// 1. super init first
@@ -65,21 +56,17 @@ bool MainMenuScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::selectGame, this));
-	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::optionScene, this));
+	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(SelectScene::startGame, this));
 
 
 	auto play = Menu::create(playItem, NULL);
-	auto option = Menu::create(optionItem, NULL);
 
 	play->setPosition(Vec2(560, 100));
-	option->setPosition(Vec2(780, 100));
 	
 	addChild(play, 1);
-	addChild(option, 1);
 
 
-	auto background = Sprite::create("images/MainMenuScreen/Background.jpg");
+	auto background = Sprite::create("images/SelectGame/prehistoria-edad.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
