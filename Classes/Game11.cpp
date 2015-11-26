@@ -64,7 +64,7 @@ void Game11::contador()
 	if (_score == 31) //para comprobar que funciona
 	{
 
-		Global::_test = 1;
+		Global::_game11 = 1;
 		Game11::goToOptionA(this);
 	}
 
@@ -97,7 +97,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 		}
 		else 
 		{
-			Global::_test = -1;
+			Global::_game11 = -1;
 			Game11::goToOptionB(this);
 		}
 		break;
@@ -106,7 +106,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 			Game11::contador();
 		else
 		{
-			Global::_test = -1;
+			Global::_game11 = -1;
 			Game11::goToOptionB(this);
 		}
 		break;
@@ -116,7 +116,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 			Game11::contador();
 		else
 		{
-			Global::_test = -1;
+			Global::_game11 = -1;
 			Game11::goToOptionB(this);
 		}
 		break;
@@ -125,7 +125,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 			Game11::contador();
 		else
 		{
-			Global::_test = -1;
+			Global::_game11 = -1;
 			Game11::goToOptionB(this);
 		}
 		break;

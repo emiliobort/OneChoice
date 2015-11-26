@@ -13,6 +13,9 @@ public:
 	void pauseMusic();
 
 	void startGame(Ref *pSender);
+
+	void SelectScene::goToGame12(Ref *pSender);
+
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 

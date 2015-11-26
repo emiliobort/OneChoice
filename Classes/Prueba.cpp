@@ -2,10 +2,15 @@
 #include "Global.h"
 #include "MainMenuScene.h"
 
-//super movida de la leche para hacer variables globales xD
+//Con definimos las variables globales para luego inicializarlas al valor que queramos.
 
+int Global::_game11;
+int Global::_game12;
+int Global::_game13;
+int Global::_game21;
+int Global::_game22;
+int Global::_game23;
 
-int Global::_test;
 USING_NS_CC;
 
 Scene* Prueba::createScene()
@@ -39,7 +44,16 @@ bool Prueba::init()
 		return false;
 	}
 
-	Global::_test = 0;
+	//Inicializamos las variables globales de los juegos.
+
+	Global::_game11 = 0;
+	Global::_game12 = 0;
+	Global::_game13 = 0;
+	Global::_game21 = 0;
+	Global::_game22 = 0;
+	Global::_game23 = 0;
+
+
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 

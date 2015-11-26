@@ -2,6 +2,7 @@
 #include "MainMenuScene.h"
 #include "GameScene.h"
 #include "Game11.h"
+#include "Game12.h"
 
 
 USING_NS_CC;
@@ -25,6 +26,13 @@ Scene* SelectScene::createScene()
 void SelectScene::startGame(Ref *pSender){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = Game11::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+}
+
+void SelectScene::goToGame12(Ref *pSender) {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = Game12::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
@@ -56,13 +64,20 @@ bool SelectScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(SelectScene::startGame, this));
+	auto playItem = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::startGame, this));
+
+	auto game12Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::goToGame12, this));
 
 
 	auto play = Menu::create(playItem, NULL);
+	auto game12 = Menu::create(game12Item, NULL);
 
-	play->setPosition(Vec2(560, 100));
-	
+	play->setPosition(Vec2(300, 450));
+	game12->setPosition(Vec2(725, 450));
+//(1150, 450) coords del siguiente boton
+
+	addChild(game12, 2);
+
 	addChild(play, 1);
 
 
@@ -76,23 +91,5 @@ bool SelectScene::init()
 	//audio
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/ButtonClick.wav");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crash.wav");
-
-
-	// Inicializando el Sprite del jugador
-
-
-
-
-	//background music
-
-	/*auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	if (audio->isBackgroundMusicPlaying()==false)
-	{
-		audio->preloadBackgroundMusic("audio/Music.mp3");
-		audio->playBackgroundMusic("audio/Music.mp3", true);
-		musicMuted = false;
-	}*/
-	
 	return true;
 }

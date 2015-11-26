@@ -1,5 +1,5 @@
-#ifndef __GAME11_H__
-#define __GAME11_H__
+
+#pragma once
 
 #include "cocos2d.h"
 
@@ -44,5 +44,3 @@ public:
 
 	CREATE_FUNC(Game11);
 };
-
-#endif // __GAME11_H__

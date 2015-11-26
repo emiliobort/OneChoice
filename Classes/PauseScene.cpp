@@ -76,7 +76,7 @@ bool PauseScene::init()
 	addChild(background, 0);
 
 
-	__String *text = __String::createWithFormat("Score %d    ", Global::_test);
+	__String *text = __String::createWithFormat("Game11 %d   ", Global::_game11);
 	_game1 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
 	_game1->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
 
