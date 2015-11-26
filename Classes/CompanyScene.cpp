@@ -1,6 +1,5 @@
 #include "MainMenuScene.h"
 #include "GameScene.h"
-#include "SelectScene.h"
 #include "Game11.h"
 
 USING_NS_CC;
@@ -21,10 +20,9 @@ Scene* MainMenuScene::createScene()
     return scene;
 }
 
-
-void MainMenuScene::selectGame(Ref *pSender) {
+void MainMenuScene::startGame(Ref *pSender){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = SelectScene::createScene();
+	auto scene = Game11::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
@@ -56,8 +54,8 @@ bool MainMenuScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::selectGame, this));
-	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::selectGame, this));
+	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::startGame, this));
+	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::startGame, this));
 
 
 	auto play = Menu::create(playItem, NULL);

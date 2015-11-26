@@ -1,10 +1,10 @@
-#ifndef __MAINMENU_SCENE_H__
-#define __MAINMENU_SCENE_H__
+#ifndef __SELECT_SCENE_H__
+#define __SELECT_SCENE_H__
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-class MainMenuScene : public cocos2d::Layer
+class SelectScene : public cocos2d::Layer
 {
 public:
 
@@ -12,7 +12,7 @@ public:
 
 	void pauseMusic();
 
-	void selectGame(Ref *pSender);
+	void startGame(Ref *pSender);
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -20,7 +20,7 @@ public:
     virtual bool init();
     
     // implement the "static create()" method manually
-    CREATE_FUNC(MainMenuScene);
+    CREATE_FUNC(SelectScene);
 };
 
 #endif // __MAINMENU_SCENE_H__
