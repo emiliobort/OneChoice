@@ -1,6 +1,7 @@
 #include "Game11.h"
 #include "Game11a.h"
 #include "Game11b.h"
+#include "Global.h"
 
 USING_NS_CC;
 
@@ -54,6 +55,7 @@ void Game11::contador()
 	}
 	if (_score == 30)
 	{
+		Global::_test = 1;
 		Game11::goToOptionA(this);
 	}
 
@@ -86,7 +88,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 		}
 		else 
 		{
-
+			Global::_test = -1;
 			Game11::goToOptionB(this);
 		}
 		break;
@@ -95,6 +97,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 			Game11::contador();
 		else
 		{
+			Global::_test = -1;
 			Game11::goToOptionB(this);
 		}
 		break;
@@ -103,12 +106,21 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 			Game11::contador();
 		else
 		{
+			Global::_test = -1;
 			Game11::goToOptionB(this);
 		}
 		break;
 	}
 }
 
+//Con esto usamos el contador, una cosa que tengo que explicaros
+void Game11::timer(float dt) {
+	_time++;
+
+	String *tiempo = String::createWithFormat("time %d    ", _time);
+	_timer->setString(tiempo->getCString());
+
+}
 
 bool Game11::init()
 {
@@ -163,7 +175,15 @@ bool Game11::init()
 	_labelScore = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
 	_labelScore->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
 
+	String *tiempo = String::createWithFormat("time %d    ", _time);
+	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/Marker Felt.ttf", 24);
+	_timer->setPosition(Vec2(150, visibleSize.height - 30));
+
+	//Timer
+
 	addChild(_labelScore, 1);
+	addChild(_timer, 1);
+	this->schedule(schedule_selector(Game11::timer), 1.0);
 
 	return true;
 }

@@ -2,14 +2,20 @@
 #define __PAUSE_SCENE_H__
 
 #include "cocos2d.h"
+USING_NS_CC;
 
 class PauseScene : public cocos2d::Layer
 {
+
+private:
+	Label *_game1;
+
 public:
 
 	void resumeGameScene(Ref *pSender);
 	void goToMainMenu(Ref *pSender);
 	void retryGameScene(Ref *pSender);
+
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();

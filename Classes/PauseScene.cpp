@@ -1,6 +1,8 @@
 #include "PauseScene.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
+#include "Game11.h"
+#include "Global.h"
 
 
 USING_NS_CC;
@@ -29,16 +31,16 @@ void PauseScene::goToMainMenu(Ref *pSender){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = MainMenuScene::createScene();
 
-	Director::getInstance()->popScene();
+	//Director::getInstance()->popScene();
 	Director::getInstance()->replaceScene(scene);
 
 }
 
 void PauseScene::retryGameScene(Ref *pSender){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = GameScene::createScene();
+	auto scene = Game11::createScene();
 
-	Director::getInstance()->popScene();
+	//Director::getInstance()->popScene();
 	Director::getInstance()->replaceScene(scene);
 }
 
@@ -73,5 +75,11 @@ bool PauseScene::init()
 
 	addChild(background, 0);
 
+
+	__String *text = __String::createWithFormat("Score %d    ", Global::_test);
+	_game1 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
+	_game1->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
+
+	addChild(_game1,1);
 	return true;
 }
