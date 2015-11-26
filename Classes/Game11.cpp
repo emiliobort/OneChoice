@@ -43,17 +43,24 @@ void Game11::contador()
 
 	if (_score == 10)
 	{
-		_playerSprite->setTexture("images/squirtle.png");
-		_button->setTexture("images/left.png");
+		_playerSprite->setTexture("images/Game1.1/rueda2.png");
+		_button->setTexture("images/Game1.1/left1.png");
 		_aux = 1;
 	}
+
 	if (_score == 20)
 	{
-		_playerSprite->setTexture("images/charizard.png");
-		_button->setTexture("images/right.png");
+		_playerSprite->setTexture("images/Game1.1/rueda3.png");
+		_button->setTexture("images/Game1.1/down.png");
 		_aux = 2;
 	}
 	if (_score == 30)
+	{
+		_playerSprite->setTexture("images/Game1.1/rueda4.png");
+		_button->setTexture("images/Game1.1/right1.png");
+		_aux = 3;
+	}
+	if (_score == 31) //para comprobar que funciona
 	{
 		Global::_test = 1; //ojo a esto!!
 		Game11::goToOptionA(this);
@@ -101,8 +108,18 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 			Game11::goToOptionB(this);
 		}
 		break;
+
+	case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
+		if (_aux == 2)
+			Game11::contador();
+		else
+		{
+			Global::_test = -1;
+			Game11::goToOptionB(this);
+		}
+		break;
 	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //0x1053
-		if (_aux==2)
+		if (_aux==3)
 			Game11::contador();
 		else
 		{
@@ -137,7 +154,7 @@ bool Game11::init()
 
 	// Inicializando el Fondo
 
-	auto background = Sprite::create("images/deadpool.jpg");
+	auto background = Sprite::create("images/Game1.1/fondo.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
@@ -146,22 +163,37 @@ bool Game11::init()
 
 	// Inicializando el Sprite del jugador
 
-	_playerSprite = Sprite::create("images/pikachu.png");
+	_playerSprite = Sprite::create("images/Game1.1/neo.png");
 
-	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height/4));
-	_playerSprite->setScale(0.5);
+	_playerSprite->setPosition(Point(visibleSize.width / 4, _playerSprite->getContentSize().height/2));
+	_playerSprite->setScale(0.7);
 
 	addChild(_playerSprite, 1);
 
+	//inicializando los sprites de rueda y fuego 
+	_playerSprite = Sprite::create("images/Game1.1/Fuego.png");
+
+	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
+	_playerSprite->setScale(0.7);
+
+	addChild(_playerSprite, 1);
+
+	_playerSprite = Sprite::create("images/Game1.1/rueda.png");
+
+	_playerSprite->setPosition(Point(visibleSize.width / 6, _playerSprite->getContentSize().height / 1.2));
+	_playerSprite->setScale(0.7);
+
+	addChild(_playerSprite, 1);
 	// Inicializando el Sprite del boton a pulsar
 
-	_button = Sprite::create("images/up.png");
+	_button = Sprite::create("images/Game1.1/up1.png");
 
-	_button->setPosition(Point(visibleSize.width / 6 , _button->getContentSize().height * 1.1));
-	_button->setScale(0.1);
+	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 7));
+	_button->setScale(0.7);
 
 	addChild(_button, 2);
 
+	
 	// Configuramos la funcion de las teclas
 	auto listener = EventListenerKeyboard::create();
 
