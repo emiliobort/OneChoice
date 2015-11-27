@@ -64,21 +64,21 @@ bool SelectScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto playItem = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::startGame, this));
+	auto game11Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::startGame, this));
 
 	auto game12Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::goToGame12, this));
 
 
-	auto play = Menu::create(playItem, NULL);
+	auto game11 = Menu::create(game11Item, NULL);
 	auto game12 = Menu::create(game12Item, NULL);
 
-	play->setPosition(Vec2(300, 450));
+	game11->setPosition(Vec2(300, 450));
 	game12->setPosition(Vec2(725, 450));
 //(1150, 450) coords del siguiente boton
 
 	addChild(game12, 2);
 
-	addChild(play, 1);
+	addChild(game11, 1);
 
 
 	auto background = Sprite::create("images/SelectGame/prehistoria-edad.jpg");

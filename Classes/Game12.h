@@ -10,11 +10,13 @@ public:
 	//Sprite de las piezas
 	Sprite *_piece1;
 
-	void Game12::goToOptionA(Ref *pSender);
+	void goToSelectScene(Ref *pSender);
 
-	void Game12::goToOptionB(Ref *pSender);
+	void goToOptionA(Ref *pSender);
 
-	void Game12::timer(float dt);
+	void goToOptionB(Ref *pSender);
+
+	void timer(float dt);
 
 	//Funcion para crear la escena
 	static cocos2d::Scene* createScene();

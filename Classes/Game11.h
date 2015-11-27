@@ -30,11 +30,11 @@ public:
 
 	void contador();
 
-	void Game11::goToOptionA(Ref *pSender);
+	void goToOptionA(Ref *pSender);
 
-	void Game11::goToOptionB(Ref *pSender);
+	void goToOptionB(Ref *pSender);
 
-	void Game11::timer(float dt);
+	void timer(float dt);
 
 	//Funcion para crear la escena
 	static cocos2d::Scene* createScene();

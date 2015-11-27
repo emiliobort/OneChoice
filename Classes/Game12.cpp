@@ -1,6 +1,7 @@
 #include "Game12.h"
 
 #include "Global.h"
+#include "SelectScene.h"
 
 USING_NS_CC;
 
@@ -29,6 +30,12 @@ Scene* Game12::createScene()
 	return scene;
 }
 
+void Game12::goToSelectScene(Ref *pSender) {
+	auto scene = SelectScene::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+}
+
 bool Game12::init()
 {
 
@@ -44,20 +51,30 @@ bool Game12::init()
 
 	// Inicializando el Fondo
 
-	auto background = Sprite::create("images/Game1.2/fondo2.jpg");
+	auto background = Sprite::create("images/enConstruccion.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
 	addChild(background, 0);
 
-	// Inicializando el Sprite del jugador
+	/*
 
 	_piece1 = Sprite::create("images/Game1.2/piece1.png");
 
 	_piece1->setPosition(Point(visibleSize.width / 4, visibleSize.height - _piece1->getContentSize().height / 2));
 
 	addChild(_piece1, 1);
+	
+	*/
+
+	auto backItem = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(Game12::goToSelectScene, this));
+
+	auto back = Menu::create(backItem, NULL);
+
+	back->setPosition(Vec2(300, 450));
+
+	addChild(back, 1);
 
 	return true;
 }

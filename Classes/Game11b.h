@@ -7,7 +7,11 @@
 class Game11b : public cocos2d::Layer
 {
 public:
-	void Game11b::goToMenuScene(Ref *pSender);
+	int _time;
+
+	void timer(float dt);
+
+	void goToMenuScene(Ref *pSender);
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();

@@ -132,7 +132,6 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	}
 }
 
-//Con esto usamos el contador, una cosa que tengo que explicaros
 void Game11::timer(float dt) {
 	_time++;
 
