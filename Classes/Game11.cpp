@@ -89,47 +89,70 @@ Scene* Game11::createScene()
 void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	_pressedKey = keyCode;
 
-	switch (_pressedKey) {
-	case EventKeyboard::KeyCode::KEY_UP_ARROW: //0x1052
-		if (_aux==0) 
-		{
-			Game11::contador();
-		}
-		else 
-		{
-			Global::_game11 = -1;
-			Game11::goToOptionB(this);
-		}
-		break;
-	case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //0x1051
-		if (_aux==1)
-			Game11::contador();
-		else
-		{
-			Global::_game11 = -1;
-			Game11::goToOptionB(this);
-		}
-		break;
+	if (_pressedKey != EventKeyboard::KeyCode::KEY_UP_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_LEFT_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_DOWN_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+	{
 
-	case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
-		if (_aux == 2)
-			Game11::contador();
-		else
-		{
-			Global::_game11 = -1;
-			Game11::goToOptionB(this);
-		}
-		break;
-	case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //0x1053
-		if (_aux==3)
-			Game11::contador();
-		else
-		{
-			Global::_game11 = -1;
-			Game11::goToOptionB(this);
-		}
-		break;
+		Global::_game11 = -1;
+		Game11::goToOptionB(this);
+
 	}
+
+	else
+	{
+		switch (_pressedKey) {
+
+				case EventKeyboard::KeyCode::KEY_UP_ARROW: //0x1052
+				if (_aux == 0)
+				{
+				Game11::contador();
+				}
+				else
+				{
+					Global::_game11 = -1;
+					Game11::goToOptionB(this);
+				}
+					break;
+
+				case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //0x1051
+					if (_aux == 1)
+					{
+						Game11::contador();
+					}
+					
+					else
+					{
+					Global::_game11 = -1;
+					Game11::goToOptionB(this);
+					}
+						break;
+					case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
+					if (_aux == 2)
+						Game11::contador();
+					else
+					{
+					Global::_game11 = -1;
+					Game11::goToOptionB(this);
+					}
+						break;
+				case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //0x1053
+					if (_aux == 3)
+						Game11::contador();
+					else
+					{
+						Global::_game11 = -1;
+						Game11::goToOptionB(this);
+					}
+						break;
+				//default:
+					//Global::_game11 = -1;
+					//Game11::goToOptionB(this);
+					//break;
+
+		}
+	}
+
+		
+	
 }
 
 void Game11::timer(float dt) {
