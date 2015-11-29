@@ -44,7 +44,7 @@ void Game11::contador()
 	if (_score == 10)
 	{
 		_playerSprite->setTexture("images/Game1.1/rueda2.png");
-		_button->setTexture("images/Game1.1/left1.png");
+		_button->setTexture("images/Game1.1/left.png");
 		_aux = 1;
 	}
 
@@ -58,7 +58,7 @@ void Game11::contador()
 	{
 
 		_playerSprite->setTexture("images/Game1.1/rueda4.png");
-		_button->setTexture("images/Game1.1/right1.png");
+		_button->setTexture("images/Game1.1/right.png");
 		_aux = 3;
 	}
 	if (_score == 31) //para comprobar que funciona
@@ -210,10 +210,10 @@ bool Game11::init()
 	addChild(_playerSprite, 1);
 	// Inicializando el Sprite del boton a pulsar
 
-	_button = Sprite::create("images/Game1.1/up1.png");
+	_button = Sprite::create("images/Game1.1/up.png");
 
-	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 7));
-	_button->setScale(0.7f);
+	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 5));
+	_button->setScale(2.0f);
 
 	addChild(_button, 2);
 
