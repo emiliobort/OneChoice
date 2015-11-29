@@ -1,8 +1,6 @@
 #include "MainMenuScene.h"
-#include "GameScene.h"
 #include "SelectScene.h"
-#include "Game11.h"
-#include "PauseScene.h"
+#include "OptionsScene.h"
 
 USING_NS_CC;
 
@@ -24,15 +22,15 @@ Scene* MainMenuScene::createScene()
 
 
 void MainMenuScene::selectGame(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = SelectScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void MainMenuScene::optionScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = PauseScene::createScene();
+	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = OptionsScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
@@ -63,8 +61,6 @@ bool MainMenuScene::init()
 
 	// Creating Menu
 
-	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
-
 	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::selectGame, this));
 	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::optionScene, this));
 
@@ -88,24 +84,9 @@ bool MainMenuScene::init()
 
 	//audio
 
+	/*	
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/ButtonClick.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crash.wav");
-
-
-	// Inicializando el Sprite del jugador
-
-
-
-
-	//background music
-
-	/*auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	if (audio->isBackgroundMusicPlaying()==false)
-	{
-		audio->preloadBackgroundMusic("audio/Music.mp3");
-		audio->playBackgroundMusic("audio/Music.mp3", true);
-		musicMuted = false;
-	}*/
-	
+	*/
 	return true;
 }

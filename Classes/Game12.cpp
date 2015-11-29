@@ -68,7 +68,7 @@ bool Game12::init()
 	
 	*/
 
-	auto backItem = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(Game12::goToSelectScene, this));
+	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(Game12::goToSelectScene, this));
 
 	auto back = Menu::create(backItem, NULL);
 

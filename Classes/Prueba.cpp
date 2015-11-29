@@ -77,26 +77,5 @@ bool Prueba::init()
 
 	addChild(background, 0);
 
-	//audio
-
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/ButtonClick.wav");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crash.wav");
-
-
-	// Inicializando el Sprite del jugador
-
-
-
-
-	//background music
-
-	/*auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	if (audio->isBackgroundMusicPlaying()==false)
-	{
-	audio->preloadBackgroundMusic("audio/Music.mp3");
-	audio->playBackgroundMusic("audio/Music.mp3", true);
-	musicMuted = false;
-	}*/
-
 	return true;
 }
