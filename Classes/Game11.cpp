@@ -190,7 +190,7 @@ bool Game11::init()
 	_playerSprite = Sprite::create("images/Game1.1/neo.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 4, _playerSprite->getContentSize().height/2));
-	_playerSprite->setScale(0.7);
+	_playerSprite->setScale(0.7f);
 
 	addChild(_playerSprite, 1);
 
@@ -198,14 +198,14 @@ bool Game11::init()
 	_playerSprite = Sprite::create("images/Game1.1/Fuego.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
-	_playerSprite->setScale(0.7);
+	_playerSprite->setScale(0.7f);
 
 	addChild(_playerSprite, 1);
 
 	_playerSprite = Sprite::create("images/Game1.1/rueda.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 6, _playerSprite->getContentSize().height / 1.2));
-	_playerSprite->setScale(0.7);
+	_playerSprite->setScale(0.7f);
 
 	addChild(_playerSprite, 1);
 	// Inicializando el Sprite del boton a pulsar
@@ -213,7 +213,7 @@ bool Game11::init()
 	_button = Sprite::create("images/Game1.1/up1.png");
 
 	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 7));
-	_button->setScale(0.7);
+	_button->setScale(0.7f);
 
 	addChild(_button, 2);
 

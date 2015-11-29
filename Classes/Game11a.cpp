@@ -62,7 +62,7 @@ bool Game11a::init()
 	auto image = Sprite::create("images/game1.1/bien.png");
 
 	image->setPosition(Point((visibleSize.width / 2.5),(visibleSize.height / 3.2)));
-	image->setScale(0.6);
+	image->setScale(0.6f);
 
 	addChild(image, 1);
 
