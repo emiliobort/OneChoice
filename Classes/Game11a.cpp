@@ -2,12 +2,13 @@
 #include "GameScene.h"
 #include "Game11.h"
 #include "MainMenuScene.h"
+#include "SelectScene.h"
 
 USING_NS_CC;
 
 
-void Game11a::goToMenuScene(Ref *pSender) {
-	auto scene = MainMenuScene::createScene();
+void Game11a::goToSelectScene(Ref *pSender) {
+	auto scene = SelectScene::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 
@@ -31,7 +32,7 @@ void Game11a::timer(float dt)
 	_time++;
 
 	if (_time == 4) {
-		Game11a::goToMenuScene(this);
+		Game11a::goToSelectScene(this);
 	}
 }
 

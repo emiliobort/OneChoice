@@ -2,10 +2,11 @@
 #include "GameScene.h"
 #include "Game11.h"
 #include "MainMenuScene.h"
+#include "SelectScene.h"
 
 USING_NS_CC;
-void Game11b::goToMenuScene(Ref *pSender) {
-	auto scene = MainMenuScene::createScene();
+void Game11b::goToSelectScene(Ref *pSender) {
+	auto scene = SelectScene::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 
@@ -29,7 +30,7 @@ void Game11b::timer(float dt)
 	_time++;
 
 	if (_time == 4) {
-		Game11b::goToMenuScene(this);
+		Game11b::goToSelectScene(this);
 	}
 }
 // on "init" you need to initialize your instance
