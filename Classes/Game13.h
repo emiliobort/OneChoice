@@ -8,6 +8,10 @@ class Game13 : public cocos2d::Layer
 {
 private:
 	EventKeyboard::KeyCode _pressedKey;
+	Vec2 _carro;
+	bool _isMoving;
+
+	PhysicsWorld *mWorld;
 
 	int _score = 0;
 	Label *_labelScore;
@@ -18,6 +22,15 @@ private:
 
 
 public:
+
+	Sprite *_backgroundSpriteArray[2];
+
+	void Game13::setPhysicisWorld(PhysicsWorld *world);
+
+	bool Game13::onContactBegin(PhysicsContact &contact);
+
+	void Game13::goToSelectScene(Ref *pSender);
+
 	//Sprite del jugador
 	Sprite *_playerSprite;
 
@@ -27,6 +40,9 @@ public:
 	//Funcion que controla el boton que se pulsa
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event);
 
+	void onKeyReleased(EventKeyboard::KeyCode keyCode, Event *event);
+
+	void update(float dt);
 
 	void contador();
 

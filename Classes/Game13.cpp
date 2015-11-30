@@ -2,6 +2,7 @@
 #include "Game13a.h"
 #include "Game13b.h"
 #include "Global.h"
+#include "SelectScene.h"
 
 USING_NS_CC;
 
@@ -33,51 +34,49 @@ void Game13::goToOptionB(Ref *pSender) {
 	Director::getInstance()->replaceScene(scene);
 }
 
-void Game13::contador()
-{
+void Game13::goToSelectScene(Ref *pSender) {
+	auto scene = SelectScene::createScene();
 
-	_score ++;
+	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+}
 
-	__String *text = __String::createWithFormat("Score %d    ", _score);
-	_labelScore->setString(text->getCString());
+void Game13::update(float dt) {
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	auto background = Sprite::create("images/Game1.3/fondo2.jpg");
 
-	if (_score == 10)
+	auto *move = (FiniteTimeAction *)MoveBy::create(2 / 0.3f, Point(0, -visibleSize.height + background->getContentSize().height));
+
+	move->retain();
+	// Scrolls Background
+	for (int i = 0; i < 2; i++)
 	{
-		_playerSprite->setTexture("images/Game1.1/rueda2.png");
-		_button->setTexture("images/Game1.1/left.png");
-		_aux = 1;
+		if (_backgroundSpriteArray[i]->getPosition().y < (visibleSize.height*-0.5))
+			_backgroundSpriteArray[i]->setPosition(Point(visibleSize.width / 2, visibleSize.height*1.5f));
+
+		else
+			_backgroundSpriteArray[i]->setPosition(Point(_backgroundSpriteArray[i]->getPosition().x, _backgroundSpriteArray[i]->getPosition().y - (0.3f * visibleSize.height*dt)));
 	}
+}
 
-	if (_score == 20)
-	{
-		_playerSprite->setTexture("images/Game1.1/rueda3.png");
-		_button->setTexture("images/Game1.1/down.png");
-		_aux = 2;
-	}
-	if (_score == 30)
-	{
+void Game13::setPhysicisWorld(PhysicsWorld *world) {
+	mWorld = world;
+	mWorld->setGravity(Vec2::ZERO);
+}
 
-		_playerSprite->setTexture("images/Game1.1/rueda4.png");
-		_button->setTexture("images/Game1.1/right.png");
-		_aux = 3;
-	}
-	if (_score == 31) //para comprobar que funciona
-	{
-
-		Global::_game13 = 1;
-		Game13::goToOptionA(this);
-	}
-
-
+bool Game13::onContactBegin(PhysicsContact &contact) {
+	Global::_game13 = -1; 
+	goToOptionB(this);
+	return true;
 }
 
 Scene* Game13::createScene()
 {
 	// 'scene' is an autorelease object
-	auto scene = Scene::create();
+	auto scene = Scene::createWithPhysics();
 
 	// 'layer' is an autorelease object
 	auto layer = Game13::create();
+	layer->setPhysicisWorld(scene->getPhysicsWorld());
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -89,70 +88,25 @@ Scene* Game13::createScene()
 void Game13::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	_pressedKey = keyCode;
 
-	if (_pressedKey != EventKeyboard::KeyCode::KEY_UP_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_LEFT_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_DOWN_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
-	{
-
-		Global::_game13 = -1;
-		Game13::goToOptionB(this);
-
+	switch (_pressedKey) {
+		case EventKeyboard::KeyCode::KEY_UP_ARROW: //0x1052
+			_carro = Vec2(0, 10);
+			_isMoving = true;
+			break;
+		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+			_carro = Vec2(0, -10);
+			_isMoving = true;
+			break;
 	}
+}
 
-	else
+void Game13::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *event) {
+	if (_pressedKey == keyCode)
 	{
-		switch (_pressedKey) {
-
-				case EventKeyboard::KeyCode::KEY_UP_ARROW: //0x1052
-				if (_aux == 0)
-				{
-				Game13::contador();
-				}
-				else
-				{
-					Global::_game13 = -1;
-					Game13::goToOptionB(this);
-				}
-					break;
-
-				case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //0x1051
-					if (_aux == 1)
-					{
-						Game13::contador();
-					}
-					
-					else
-					{
-					Global::_game13 = -1;
-					Game13::goToOptionB(this);
-					}
-						break;
-					case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
-					if (_aux == 2)
-						Game13::contador();
-					else
-					{
-					Global::_game13 = -1;
-					Game13::goToOptionB(this);
-					}
-						break;
-				case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //0x1053
-					if (_aux == 3)
-						Game13::contador();
-					else
-					{
-						Global::_game11 = -1;
-						Game13::goToOptionB(this);
-					}
-						break;
-				//default:
-					//Global::_game11 = -1;
-					//Game11::goToOptionB(this);
-					//break;
-
-		}
+		_pressedKey = EventKeyboard::KeyCode::KEY_NONE;
+		_isMoving = false;
+		_carro = Vec2::ZERO;
 	}
-
-		
-	
 }
 
 void Game13::timer(float dt) {
@@ -165,6 +119,10 @@ void Game13::timer(float dt) {
 
 bool Game13::init()
 {
+	//for keyboard
+	_pressedKey = EventKeyboard::KeyCode::KEY_NONE;
+	_carro = Vec2::ZERO;
+	_isMoving = false;
 
 
 	//////////////////////////////
@@ -176,70 +134,67 @@ bool Game13::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	// Inicializando el Fondo
-
-	auto background = Sprite::create("images/Game1.1/fondo.jpg");
+	auto background = Sprite::create("images/enConstruccion.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
 	addChild(background, 0);
 
-	// Inicializando el Sprite del jugador
+	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(Game13::goToSelectScene, this));
 
-	_playerSprite = Sprite::create("images/Game1.1/neo.png");
+	auto back = Menu::create(backItem, NULL);
 
-	_playerSprite->setPosition(Point(visibleSize.width / 4, _playerSprite->getContentSize().height/2));
-	_playerSprite->setScale(0.7f);
+	back->setPosition(Vec2(300, 450));
+
+	addChild(back, 1);
+
+
+	//A partir de aqui hay que tocar cosas, de momento dejo el apartado de en construccion
+	/*
+	//Loading scrollable background
+
+	for (int i = 0; i < 2; i++)
+	{
+		_backgroundSpriteArray[i] = Sprite::create("images/Game1.3/fondo2.jpg");
+		_backgroundSpriteArray[i]->setPosition(Point(visibleSize.width / 2 , visibleSize.height/2 + (i + 0.5f)));
+
+		addChild(_backgroundSpriteArray[i], 0);
+	}
+
+	//Loading player sprite
+
+	_playerSprite = Sprite::create("images/Game1.3/Jugador.png");
+
+	_playerSprite->setPosition(Point(500,500));
 
 	addChild(_playerSprite, 1);
 
-	//inicializando los sprites de rueda y fuego 
-	_playerSprite = Sprite::create("images/Game1.1/Fuego.png");
+	this->scheduleUpdate();
 
-	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
-	_playerSprite->setScale(0.7f);
+	//this->schedule(schedule_selector(GameScene::spawnAsteroid), 1.0);
 
-	addChild(_playerSprite, 1);
+	//this->schedule(schedule_selector(GameScene::moveBackground), 1.0);
 
-	_playerSprite = Sprite::create("images/Game1.1/rueda.png");
-
-	_playerSprite->setPosition(Point(visibleSize.width / 6, _playerSprite->getContentSize().height / 1.2));
-	_playerSprite->setScale(0.7f);
-
-	addChild(_playerSprite, 1);
-	// Inicializando el Sprite del boton a pulsar
-
-	_button = Sprite::create("images/Game1.1/up.png");
-
-	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 5));
-	_button->setScale(2.0f);
-
-	addChild(_button, 2);
-
-	
-	// Configuramos la funcion de las teclas
+	//Setting and binding keyboard callbacks
 	auto listener = EventListenerKeyboard::create();
 
 	listener->onKeyPressed = CC_CALLBACK_2(Game13::onKeyPressed, this);
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
+	//PhysicsBody for each Sprite
 
-	//Coloca el Label donde se encuentra la puntuacion (numero de clicks ahora mismo)
-	__String *text = __String::createWithFormat("Score %d    ", _score);
-	_labelScore = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_labelScore->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
+	auto body = PhysicsBody::createCircle(_playerSprite->getBoundingBox().size.width / 2);
+	body->setContactTestBitmask(true);
+	body->setDynamic(true);
+	_playerSprite->setPhysicsBody(body);
 
-	String *tiempo = String::createWithFormat("time %d    ", _time);
-	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/Marker Felt.ttf", 24);
-	_timer->setPosition(Vec2(150, visibleSize.height - 30));
-
-	//Timer
-
-	addChild(_labelScore, 1);
-	addChild(_timer, 1);
-	this->schedule(schedule_selector(Game13::timer), 1.0);
+	//if meteor impact with pod
+	//auto contactListener = EventListenerPhysicsContact::create();
+	//contactListener->onContactBegin = CC_CALLBACK_1(Game13::onContactBegin, this);
+	//getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+	*/
 
 	return true;
 }

@@ -185,7 +185,7 @@ bool Game21::init()
 
 	//Coloca el Label donde se encuentra la puntuacion (numero de clicks ahora mismo)
 	__String *text = __String::createWithFormat("Score %d    ", _score);
-	_labelScore = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
+	_labelScore = Label::createWithTTF(text->getCString(), "fonts/trebuc.ttf", 24);
 	_labelScore->setPosition(Vec2(visibleSize.width - 190, visibleSize.height - 30));
 
 	String *tiempo = String::createWithFormat("");
