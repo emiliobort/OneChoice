@@ -2,6 +2,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 class Game11 : public cocos2d::Layer

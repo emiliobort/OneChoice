@@ -4,6 +4,7 @@
 #include "PauseScene.h"
 #include "Kao.h"
 #include "OptionsScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -25,14 +26,14 @@ Scene* MainMenuScene::createScene()
 
 
 void MainMenuScene::Kao(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	
 	auto scene = Kao::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void MainMenuScene::optionScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	
 	auto scene = OptionsScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
@@ -53,6 +54,7 @@ void MainMenuScene::pauseMusic() {
 // on "init" you need to initialize your instance
 bool MainMenuScene::init()
 {
+	
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())

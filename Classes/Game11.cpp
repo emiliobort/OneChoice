@@ -2,6 +2,7 @@
 #include "Game11a.h"
 #include "Game11b.h"
 #include "Global.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -104,6 +105,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 				if (_aux == 0)
 				{
 				Game11::contador();
+				CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crash.wav");
 				}
 				else
 				{
@@ -116,6 +118,7 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 					if (_aux == 1)
 					{
 						Game11::contador();
+						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crash.wav");
 					}
 					
 					else
@@ -124,9 +127,15 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 					Game11::goToOptionB(this);
 					}
 						break;
-					case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
+				case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
+
 					if (_aux == 2)
+					{
 						Game11::contador();
+						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crash.wav");
+
+					}
+						
 					else
 					{
 					Global::_game11 = -1;
@@ -135,7 +144,12 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 						break;
 				case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //0x1053
 					if (_aux == 3)
+					{
 						Game11::contador();
+						CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/Crash.wav");
+
+					}
+						
 					else
 					{
 						Global::_game11 = -1;
@@ -164,13 +178,17 @@ void Game11::timer(float dt) {
 bool Game11::init()
 {
 
-
+	
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
 	{
 		return false;
 	}
+
+	//Inicializar audio
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crash.mp3");
+
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
