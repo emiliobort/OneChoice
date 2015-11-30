@@ -1,42 +1,44 @@
 #include "MainMenuScene.h"
-#include "SelectScene.h"
-#include "OptionsScene.h"
+#include "GameScene.h"
+#include "Game11.h"
+#include "PauseScene.h"
+#include "Kao.h"
 
 USING_NS_CC;
 
 
 Scene* MainMenuScene::createScene()
 {
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
-    auto layer = MainMenuScene::create();
+	// 'scene' is an autorelease object
+	auto scene = Scene::create();
 
-    // add layer as a child to scene
-    scene->addChild(layer);
+	// 'layer' is an autorelease object
+	auto layer = MainMenuScene::create();
 
-    // return the scene
-    return scene;
+	// add layer as a child to scene
+	scene->addChild(layer);
+
+	// return the scene
+	return scene;
 }
 
 
-void MainMenuScene::selectGame(Ref *pSender) {
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = SelectScene::createScene();
+void MainMenuScene::Kao(Ref *pSender) {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = Kao::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void MainMenuScene::optionScene(Ref *pSender) {
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = OptionsScene::createScene();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = PauseScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 
-void MainMenuScene::pauseMusic(){
+void MainMenuScene::pauseMusic() {
 	if (musicMuted)
 	{
 		CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
@@ -61,7 +63,9 @@ bool MainMenuScene::init()
 
 	// Creating Menu
 
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::selectGame, this));
+	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
+
+	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::Kao, this));
 	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::optionScene, this));
 
 
@@ -70,7 +74,7 @@ bool MainMenuScene::init()
 
 	play->setPosition(Vec2(560, 100));
 	option->setPosition(Vec2(780, 100));
-	
+
 	addChild(play, 1);
 	addChild(option, 1);
 
@@ -84,9 +88,24 @@ bool MainMenuScene::init()
 
 	//audio
 
-	/*	
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/ButtonClick.wav");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crash.wav");
-	*/
+
+
+	// Inicializando el Sprite del jugador
+
+
+
+
+	//background music
+
+	/*auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	if (audio->isBackgroundMusicPlaying()==false)
+	{
+	audio->preloadBackgroundMusic("audio/Music.mp3");
+	audio->playBackgroundMusic("audio/Music.mp3", true);
+	musicMuted = false;
+	}*/
+
 	return true;
 }

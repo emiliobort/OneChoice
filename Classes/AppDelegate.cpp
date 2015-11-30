@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "MainMenuScene.h"
 #include "Prueba.h"
+#include "Kao.h"
 
 USING_NS_CC;
 
