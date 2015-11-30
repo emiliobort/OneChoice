@@ -38,8 +38,8 @@ void Game11::contador()
 
 	_score ++;
 
-	__String *text = __String::createWithFormat("Score %d    ", _score);
-	_labelScore->setString(text->getCString());
+	/*__String *text = __String::createWithFormat("Score %d    ", _score);
+	_labelScore->setString(text->getCString());*/
 
 	if (_score == 10)
 	{
@@ -63,7 +63,6 @@ void Game11::contador()
 	}
 	if (_score == 31) //para comprobar que funciona
 	{
-
 		Global::_game11 = 1;
 		Game11::goToOptionA(this);
 	}
@@ -143,11 +142,6 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 						Game11::goToOptionB(this);
 					}
 						break;
-				//default:
-					//Global::_game11 = -1;
-					//Game11::goToOptionB(this);
-					//break;
-
 		}
 	}
 
@@ -158,9 +152,13 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 void Game11::timer(float dt) {
 	_time++;
 
-	String *tiempo = String::createWithFormat("time %d    ", _time);
+	String *tiempo = String::createWithFormat("%d", 16-_time);
 	_timer->setString(tiempo->getCString());
 
+	if (_time == 16) 
+	{
+		goToOptionB(this);
+	}
 }
 
 bool Game11::init()
@@ -226,21 +224,17 @@ bool Game11::init()
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 
-	//Coloca el Label donde se encuentra la puntuacion (numero de clicks ahora mismo)
-	__String *text = __String::createWithFormat("Score %d    ", _score);
-	_labelScore = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_labelScore->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
 
-	String *tiempo = String::createWithFormat("time %d    ", _time);
-	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/Marker Felt.ttf", 24);
-	_timer->setPosition(Vec2(150, visibleSize.height - 30));
+	String *tiempo = String::createWithFormat("");
+	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/trebuc.ttf", 48);
+	_timer->setPosition(Vec2(visibleSize.width-90, visibleSize.height - 50));
+	_timer->setTextColor(Color4B::WHITE);
+	_timer->setScale(1.3);
 
 	//Timer
 
-	addChild(_labelScore, 1);
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game11::timer), 1.0);
 
 	return true;
 }
-

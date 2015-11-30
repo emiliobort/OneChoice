@@ -1,22 +1,21 @@
-#ifndef __SELECT_SCENE_H__
-#define __SELECT_SCENE_H__
+#ifndef __SELECT_SCENE2_H__
+#define __SELECT_SCENE2_H__
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
-class SelectScene : public cocos2d::Layer
+class SelectScene2 : public cocos2d::Layer
 {
 public:
-
-	void SelectScene::goToSelectScene2(Ref *pSender);
-
 	void startGame(Ref *pSender);
 
-	void SelectScene::MainMenuScene(Ref *pSender);
+	void MainMenuScene(Ref *pSender);
 
-	void SelectScene::goToGame12(Ref *pSender);
+	void SelectScene2::goToSelectScene(Ref *pSender);
 
-	void SelectScene::goToGame13(Ref *pSender);
+	void goToGame12(Ref *pSender);
+
+	void goToGame13(Ref *pSender);
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
@@ -25,7 +24,7 @@ public:
     virtual bool init();
     
     // implement the "static create()" method manually
-    CREATE_FUNC(SelectScene);
+    CREATE_FUNC(SelectScene2);
 };
 
-#endif // __MAINMENU_SCENE_H__
+#endif // __SELECT_SCENE2_H__
