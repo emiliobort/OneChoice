@@ -3,6 +3,7 @@
 #include "Game11.h"
 #include "PauseScene.h"
 #include "Kao.h"
+#include "OptionsScene.h"
 
 USING_NS_CC;
 
@@ -32,7 +33,7 @@ void MainMenuScene::Kao(Ref *pSender) {
 
 void MainMenuScene::optionScene(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = PauseScene::createScene();
+	auto scene = OptionsScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }

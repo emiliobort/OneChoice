@@ -30,6 +30,13 @@ void SelectScene::startGame(Ref *pSender){
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
+void SelectScene::MainMenuScene(Ref *pSender) {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = MainMenuScene::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+}
+
 void SelectScene::goToGame12(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = Game12::createScene();
@@ -64,17 +71,27 @@ bool SelectScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
+	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(SelectScene::MainMenuScene, this));
+
 	auto game11Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::startGame, this));
 
 	auto game12Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::goToGame12, this));
 
-
+	auto back = Menu::create(backItem, NULL);
 	auto game11 = Menu::create(game11Item, NULL);
 	auto game12 = Menu::create(game12Item, NULL);
 
 	game11->setPosition(Vec2(300, 450));
 	game12->setPosition(Vec2(725, 450));
+	
+	back->setPosition(Vec2(0, 0));
+	back->setScale(0.5f);
+	back->setPosition(Vec2(1150/1.25, 650/1.3));
+
+
 //(1150, 450) coords del siguiente boton
+
+	addChild(back, 3);
 
 	addChild(game12, 2);
 
