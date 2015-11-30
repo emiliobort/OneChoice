@@ -43,25 +43,58 @@ void Game21::contador()
 
 	if (_score == 10)
 	{
-		_playerSprite->setTexture("images/Game1.1/rueda2.png");
-		_button->setTexture("images/Game1.1/left.png");
+		_playerSprite->setTexture("images/Game2.1/2.png");
 		_aux = 1;
 	}
 
 	if (_score == 20)
 	{
-		_playerSprite->setTexture("images/Game1.1/rueda3.png");
-		_button->setTexture("images/Game1.1/down.png");
+		_playerSprite->setTexture("images/Game2.1/3.png");
 		_aux = 2;
 	}
 	if (_score == 30)
 	{
 
-		_playerSprite->setTexture("images/Game1.1/rueda4.png");
-		_button->setTexture("images/Game1.1/right.png");
+		_playerSprite->setTexture("images/Game2.1/4.png");
 		_aux = 3;
 	}
-	if (_score == 31) //para comprobar que funciona
+
+	if (_score == 40)
+	{
+
+		_playerSprite->setTexture("images/Game2.1/5.png");
+		_aux = 3;
+	}
+
+	if (_score == 50)
+	{
+
+		_playerSprite->setTexture("images/Game2.1/6.png");
+		_aux = 3;
+	}
+
+	if (_score == 60)
+	{
+
+		_playerSprite->setTexture("images/Game2.1/7.png");
+		_aux = 3;
+	}
+
+	if (_score == 70)
+	{
+
+		_playerSprite->setTexture("images/Game2.1/8.png");
+		_aux = 3;
+	}
+
+	if (_score == 80)
+	{
+
+		_playerSprite->setTexture("images/Game2.1/9.png");
+		_aux = 3;
+	}
+
+	if (_score == 90) //para comprobar que funciona
 	{
 
 		Global::_game21 = 1;
@@ -88,72 +121,12 @@ Scene* Game21::createScene()
 
 void Game21::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	_pressedKey = keyCode;
-
-	if (_pressedKey != EventKeyboard::KeyCode::KEY_UP_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_LEFT_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_DOWN_ARROW && _pressedKey != EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+	if (_pressedKey == EventKeyboard::KeyCode::KEY_SPACE)
 	{
-
-		Global::_game21 = -1;
-		Game21::goToOptionB(this);
-
+		Game21::contador();
 	}
-
-	else
-	{
-		switch (_pressedKey) {
-
-				case EventKeyboard::KeyCode::KEY_UP_ARROW: //0x1052
-				if (_aux == 0)
-				{
-				Game21::contador();
-				}
-				else
-				{
-					Global::_game21 = -1;
-					Game21::goToOptionB(this);
-				}
-					break;
-
-				case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //0x1051
-					if (_aux == 1)
-					{
-						Game21::contador();
-					}
-					
-					else
-					{
-					Global::_game21 = -1;
-					Game21::goToOptionB(this);
-					}
-						break;
-					case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //0x1054 o 0x1050
-					if (_aux == 2)
-						Game21::contador();
-					else
-					{
-					Global::_game21 = -1;
-					Game21::goToOptionB(this);
-					}
-						break;
-				case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //0x1053
-					if (_aux == 3)
-						Game21::contador();
-					else
-					{
-						Global::_game11 = -1;
-						Game21::goToOptionB(this);
-					}
-						break;
-				//default:
-					//Global::_game11 = -1;
-					//Game11::goToOptionB(this);
-					//break;
-
-		}
-	}
-
-		
-	
 }
+
 
 void Game21::timer(float dt) {
 	_time++;
@@ -178,44 +151,23 @@ bool Game21::init()
 
 	// Inicializando el Fondo
 
-	auto background = Sprite::create("images/Game1.1/fondo.jpg");
+	auto background = Sprite::create("images/Game2.1/fondo.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
 	addChild(background, 0);
 
-	// Inicializando el Sprite del jugador
+	//inicializando los sprites de arturo 
+	
 
-	_playerSprite = Sprite::create("images/Game1.1/neo.png");
-
-	_playerSprite->setPosition(Point(visibleSize.width / 4, _playerSprite->getContentSize().height/2));
-	_playerSprite->setScale(0.7f);
-
-	addChild(_playerSprite, 1);
-
-	//inicializando los sprites de rueda y fuego 
-	_playerSprite = Sprite::create("images/Game1.1/Fuego.png");
-
-	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
-	_playerSprite->setScale(0.7f);
-
-	addChild(_playerSprite, 1);
-
-	_playerSprite = Sprite::create("images/Game1.1/rueda.png");
+	_playerSprite = Sprite::create("images/Game2.1/1.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 6, _playerSprite->getContentSize().height / 1.2));
 	_playerSprite->setScale(0.7f);
 
 	addChild(_playerSprite, 1);
-	// Inicializando el Sprite del boton a pulsar
-
-	_button = Sprite::create("images/Game1.1/up.png");
-
-	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 5));
-	_button->setScale(2.0f);
-
-	addChild(_button, 2);
+	
 
 	
 	// Configuramos la funcion de las teclas
