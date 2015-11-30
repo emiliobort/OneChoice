@@ -128,12 +128,17 @@ void Game21::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 }
 
 
+
 void Game21::timer(float dt) {
 	_time++;
 
-	String *tiempo = String::createWithFormat("time %d    ", _time);
+	String *tiempo = String::createWithFormat("%d", 15 - _time);
 	_timer->setString(tiempo->getCString());
 
+	if (_time == 15)
+	{
+		goToOptionB(this);
+	}
 }
 
 bool Game21::init()
@@ -163,8 +168,8 @@ bool Game21::init()
 
 	_playerSprite = Sprite::create("images/Game2.1/1.png");
 
-	_playerSprite->setPosition(Point(visibleSize.width / 6, _playerSprite->getContentSize().height / 1.2));
-	_playerSprite->setScale(0.7f);
+	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 1.2));
+	//_playerSprite->setScale(0.7f);
 
 	addChild(_playerSprite, 1);
 	
@@ -181,11 +186,13 @@ bool Game21::init()
 	//Coloca el Label donde se encuentra la puntuacion (numero de clicks ahora mismo)
 	__String *text = __String::createWithFormat("Score %d    ", _score);
 	_labelScore = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_labelScore->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
+	_labelScore->setPosition(Vec2(visibleSize.width - 190, visibleSize.height - 30));
 
-	String *tiempo = String::createWithFormat("time %d    ", _time);
-	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/Marker Felt.ttf", 24);
-	_timer->setPosition(Vec2(150, visibleSize.height - 30));
+	String *tiempo = String::createWithFormat("");
+	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/trebuc.ttf", 48);
+	_timer->setPosition(Vec2(visibleSize.width - 90, visibleSize.height - 50));
+	_timer->setTextColor(Color4B::WHITE);
+	_timer->setScale(1.3);
 
 	//Timer
 

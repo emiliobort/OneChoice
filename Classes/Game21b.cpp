@@ -57,18 +57,12 @@ bool Game21b::init()
 	addChild(menu, 1);
 	*/
 
-	auto image = Sprite::create("images/game2.1/mal.jpg");
-
-	image->setPosition(Point((visibleSize.width / 2.5), (visibleSize.height / 3.2)));
-	image->setScale(0.6f);
-
-
-	addChild(image, 1);
+	
 
 	this->schedule(schedule_selector(Game21b::timer), 1.0);
 
 
-	auto background = Sprite::create("images/game2.1/fondo.jpg");
+	auto background = Sprite::create("images/game2.1/mal.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));

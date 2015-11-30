@@ -75,7 +75,7 @@ bool SelectScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(SelectScene::MainMenuScene, this));
+	auto backItem = MenuItemImage::create("images/flechas/inicio.png", "images/flechas/inicio.png", CC_CALLBACK_1(SelectScene::MainMenuScene, this));
 
 	auto game11Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::startGame, this));
 
@@ -83,7 +83,7 @@ bool SelectScene::init()
 
 	auto game13Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::goToGame13, this));
 
-	auto selectScene2Item = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(SelectScene::goToSelectScene2, this));
+	auto selectScene2Item = MenuItemImage::create("images/flechas/ir.png", "images/flechas/ir.png", CC_CALLBACK_1(SelectScene::goToSelectScene2, this));
 
 
 	auto back = Menu::create(backItem, NULL);
@@ -95,7 +95,7 @@ bool SelectScene::init()
 	game11->setPosition(Vec2(300, 450));
 	game12->setPosition(Vec2(725, 450));
 	game13->setPosition(Vec2(1125, 450));
-	selectScene2->setPosition(Vec2(1175, 350));
+	selectScene2->setPosition(Vec2(1225, 350));
 
 	back->setPosition(Vec2(0, 0));
 	back->setScale(0.5f);

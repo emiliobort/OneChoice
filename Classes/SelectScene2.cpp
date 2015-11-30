@@ -76,7 +76,7 @@ bool SelectScene2::init()
 	// Creating Menu
 
 
-	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(SelectScene2::MainMenuScene, this));
+	auto backItem = MenuItemImage::create("images/flechas/inicio.png", "images/flechas/inicio.png", CC_CALLBACK_1(SelectScene2::MainMenuScene, this));
 
 	auto game21Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene2::startGame, this));
 
@@ -84,7 +84,7 @@ bool SelectScene2::init()
 
 	//auto game23Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene2::goToGame13, this));
 
-	auto selectSceneItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(SelectScene2::goToSelectScene, this));
+	auto selectSceneItem = MenuItemImage::create("images/flechas/volver.png", "images/flechas/volver.png", CC_CALLBACK_1(SelectScene2::goToSelectScene, this));
 
 	auto back = Menu::create(backItem, NULL);
 	auto game21 = Menu::create(game21Item, NULL);
