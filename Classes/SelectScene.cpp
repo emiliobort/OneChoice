@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "Game11.h"
 #include "Game12.h"
+#include "Game13.h"
 
 
 USING_NS_CC;
@@ -44,6 +45,13 @@ void SelectScene::goToGame12(Ref *pSender) {
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
+void SelectScene::goToGame13(Ref *pSender) {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	auto scene = Game13::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+}
+
 void SelectScene::pauseMusic(){
 	if (musicMuted)
 	{
@@ -77,12 +85,16 @@ bool SelectScene::init()
 
 	auto game12Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::goToGame12, this));
 
+	auto game13Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene::goToGame13, this));
+
 	auto back = Menu::create(backItem, NULL);
 	auto game11 = Menu::create(game11Item, NULL);
 	auto game12 = Menu::create(game12Item, NULL);
+	auto game13 = Menu::create(game13Item, NULL);
 
 	game11->setPosition(Vec2(300, 450));
 	game12->setPosition(Vec2(725, 450));
+	game13->setPosition(Vec2(1125, 450));
 	
 	back->setPosition(Vec2(0, 0));
 	back->setScale(0.5f);
@@ -92,6 +104,8 @@ bool SelectScene::init()
 //(1150, 450) coords del siguiente boton
 
 	addChild(back, 3);
+
+	addChild(game13, 2);
 
 	addChild(game12, 2);
 
