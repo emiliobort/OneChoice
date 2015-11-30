@@ -32,7 +32,15 @@ void Prueba::startGame(Ref *pSender) {
 	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = MainMenuScene::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));;
+}
+
+void Prueba::timer(float dt) {
+	_time++;
+
+	if (_time == 4) {
+		Prueba::startGame(this);
+	}
 }
 
 bool Prueba::init()
@@ -57,25 +65,17 @@ bool Prueba::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	// Creating Menu
-
-	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
-
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(Prueba::startGame, this));
-
-	auto play = Menu::create(playItem, NULL);
-
-	play->setPosition(Vec2(560, 100));
-
-	addChild(play, 1);
 
 
-	auto background = Sprite::create("images/hogwarts.jpg");
+	auto background = Sprite::create("images/CompanyScene/empresa.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
 	addChild(background, 0);
+
+
+	this->schedule(schedule_selector(Prueba::timer), 1.0);
 
 	return true;
 }
