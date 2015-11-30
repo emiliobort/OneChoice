@@ -86,17 +86,9 @@ void Kao::contador()
 
 void Kao::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	_pressedKey = keyCode;
-
-	switch (_pressedKey) {
-	case EventKeyboard::KeyCode::KEY_C: 
-		if (_aux == 0)
-		{
-			Kao::contador();
-		}
-		else {
-			_aux = 0;
-		}
-		break;
+	if (_pressedKey == EventKeyboard::KeyCode::KEY_C)
+	{
+		Kao::contador();
 	}
 }
 
