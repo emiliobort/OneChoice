@@ -94,7 +94,7 @@ void Game21::contador()
 		_aux = 3;
 	}
 
-	if (_score == 90) //para comprobar que funciona
+	if (_score > 90 && _time == 15) //para comprobar que funciona
 	{
 
 		Global::_game21 = 1;
@@ -135,7 +135,7 @@ void Game21::timer(float dt) {
 	String *tiempo = String::createWithFormat("%d", 15 - _time);
 	_timer->setString(tiempo->getCString());
 
-	if (_time == 15)
+	if (_time == 16)
 	{
 		goToOptionB(this);
 	}
