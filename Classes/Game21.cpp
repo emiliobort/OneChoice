@@ -43,54 +43,54 @@ void Game21::contador()
 
 	if (_score == 10)
 	{
-		_playerSprite->setTexture("images/Game2.1/2.png");
+		_playerSprite->setTexture("images/Game2.1/arturo02.png ");
 		_aux = 1;
 	}
 
 	if (_score == 20)
 	{
-		_playerSprite->setTexture("images/Game2.1/3.png");
+		_playerSprite->setTexture("images/Game2.1/arturo03.png");
 		_aux = 2;
 	}
 	if (_score == 30)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/4.png");
+		_playerSprite->setTexture("images/Game2.1/arturo04.png");
 		_aux = 3;
 	}
 
 	if (_score == 40)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/5.png");
+		_playerSprite->setTexture("images/Game2.1/arturo05.png");
 		_aux = 3;
 	}
 
 	if (_score == 50)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/6.png");
+		_playerSprite->setTexture("images/Game2.1/arturo06.png");
 		_aux = 3;
 	}
 
 	if (_score == 60)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/7.png");
+		_playerSprite->setTexture("images/Game2.1/arturo06.png");
 		_aux = 3;
 	}
 
 	if (_score == 70)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/8.png");
+		_playerSprite->setTexture("images/Game2.1/arturo07.png");
 		_aux = 3;
 	}
 
 	if (_score == 80)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/9.png");
+		_playerSprite->setTexture("images/Game2.1/arturo07.png");
 		_aux = 3;
 	}
 
@@ -163,18 +163,25 @@ bool Game21::init()
 
 	addChild(background, 0);
 
-	//inicializando los sprites de arturo 
 	
+	
+	//inicializando los sprites de texto de kao  
+	_playerSprite = Sprite::create("images/Game2.1/texto_arturo1.png");
 
-	_playerSprite = Sprite::create("images/Game2.1/1.png");
-
-	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 1.2));
-	//_playerSprite->setScale(0.7f);
+	_playerSprite->setPosition(Point(visibleSize.width / 1.5, _playerSprite->getContentSize().height / 1.1));
+	_playerSprite->setScale(0.4f);
 
 	addChild(_playerSprite, 1);
 	
+	//inicializando los sprites de arturo 
 
-	
+	_playerSprite = Sprite::create("images/Game2.1/arturo01.png");
+
+	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
+	_playerSprite->setScale(0.6f);
+
+	addChild(_playerSprite, 1);
+
 	// Configuramos la funcion de las teclas
 	auto listener = EventListenerKeyboard::create();
 

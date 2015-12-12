@@ -218,6 +218,16 @@ bool Game11::init()
 
 	addChild(_playerSprite, 1);
 
+	//inicializando los sprites de texto de kao  
+	_playerSprite = Sprite::create("images/Game1.1/texto_neandertal01.png");
+
+	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 1.1));
+	_playerSprite->setScale(0.4f);
+
+	addChild(_playerSprite, 1);
+
+
+
 	_playerSprite = Sprite::create("images/Game1.1/rueda.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 6, _playerSprite->getContentSize().height / 1.2));
@@ -232,6 +242,8 @@ bool Game11::init()
 	_button->setScale(2.0f);
 
 	addChild(_button, 2);
+
+	
 
 	
 	// Configuramos la funcion de las teclas

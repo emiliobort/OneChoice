@@ -67,6 +67,7 @@ bool Game11a::init()
 
 	addChild(image, 1);
 
+	
 
 	this->schedule(schedule_selector(Game11a::timer), 1.0);
 
@@ -78,4 +79,6 @@ bool Game11a::init()
 	addChild(background, 0);
 
 	return true;
+
+
 }
