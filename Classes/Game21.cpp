@@ -43,58 +43,53 @@ void Game21::contador()
 
 	if (_score == 10)
 	{
-		_playerSprite->setTexture("images/Game2.1/arturo02.png ");
+		_playerSprite->setTexture("images/Game2.1/arturo01.png ");
 		_aux = 1;
 	}
 
 	if (_score == 20)
 	{
-		_playerSprite->setTexture("images/Game2.1/arturo03.png");
+		_playerSprite->setTexture("images/Game2.1/arturo02.png");
 		_aux = 2;
 	}
 	if (_score == 30)
+	{
+		_playerSprite->setTexture("images/Game2.1/arturo03.png");
+		_aux = 2;
+	}
+
+	if (_score == 40)
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo04.png");
 		_aux = 3;
 	}
 
-	if (_score == 40)
+	if (_score == 60)
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo05.png");
 		_aux = 3;
 	}
 
-	if (_score == 50)
-	{
-
-		_playerSprite->setTexture("images/Game2.1/arturo06.png");
-		_aux = 3;
-	}
-
-	if (_score == 60)
-	{
-
-		_playerSprite->setTexture("images/Game2.1/arturo06.png");
-		_aux = 3;
-	}
-
-	if (_score == 70)
-	{
-
-		_playerSprite->setTexture("images/Game2.1/arturo07.png");
-		_aux = 3;
-	}
+	
 
 	if (_score == 80)
 	{
 
+		_playerSprite->setTexture("images/Game2.1/arturo06.png");
+		_aux = 3;
+	}
+
+	if (_score == 90)
+	{
+
 		_playerSprite->setTexture("images/Game2.1/arturo07.png");
 		_aux = 3;
 	}
 
-	if (_score > 90 && _time == 15) //para comprobar que funciona
+
+	if (_score >89 && _time == 15) //para comprobar que funciona
 	{
 
 		Global::_game21 = 1;
@@ -175,7 +170,7 @@ bool Game21::init()
 	
 	//inicializando los sprites de arturo 
 
-	_playerSprite = Sprite::create("images/Game2.1/arturo01.png");
+	_playerSprite = Sprite::create("images/Game2.1/arturo00.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
 	_playerSprite->setScale(0.6f);
