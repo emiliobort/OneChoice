@@ -41,7 +41,7 @@ void Game13::goToSelectScene(Ref *pSender) {
 }
 
 void Game13::update(float dt) {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	/*Size visibleSize = Director::getInstance()->getVisibleSize();
 	auto background = Sprite::create("images/Game1.3/fondo2.jpg");
 
 	auto *move = (FiniteTimeAction *)MoveBy::create(2 / 0.3f, Point(0, -visibleSize.height + background->getContentSize().height));
@@ -55,6 +55,22 @@ void Game13::update(float dt) {
 
 		else
 			_backgroundSpriteArray[i]->setPosition(Point(_backgroundSpriteArray[i]->getPosition().x, _backgroundSpriteArray[i]->getPosition().y - (0.3f * visibleSize.height*dt)));
+	}*/
+}
+
+void Game13::updatePosition(int i) 
+{
+	if (i == -1) {
+		player->setPositionY(540.0f);
+		return;
+	}
+	if (i == 0) {
+		player->setPositionY(350.0f);
+		return;
+	}
+	if (i == 1) {
+		player->setPositionY(160.0f);
+		return;
 	}
 }
 
@@ -71,17 +87,9 @@ bool Game13::onContactBegin(PhysicsContact &contact) {
 
 Scene* Game13::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
-
-	// 'layer' is an autorelease object
 	auto layer = Game13::create();
-	layer->setPhysicisWorld(scene->getPhysicsWorld());
-
-	// add layer as a child to scene
 	scene->addChild(layer);
-
-	// return the scene
 	return scene;
 }
 
@@ -90,23 +98,23 @@ void Game13::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 
 	switch (_pressedKey) {
 		case EventKeyboard::KeyCode::KEY_UP_ARROW: //0x1052
-			_carro = Vec2(0, 10);
-			_isMoving = true;
+			if (position != -1) 
+			{
+				position--;
+				updatePosition(position);
+			}
 			break;
 		case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-			_carro = Vec2(0, -10);
-			_isMoving = true;
+			if (position != 1)
+			{
+				position++;
+				updatePosition(position);
+			}
+			break;
+		default:
 			break;
 	}
-}
-
-void Game13::onKeyReleased(EventKeyboard::KeyCode keyCode, Event *event) {
-	if (_pressedKey == keyCode)
-	{
-		_pressedKey = EventKeyboard::KeyCode::KEY_NONE;
-		_isMoving = false;
-		_carro = Vec2::ZERO;
-	}
+	CCLOG("%d", position);
 }
 
 void Game13::timer(float dt) {
@@ -132,9 +140,9 @@ bool Game13::init()
 		return false;
 	}
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	auto background = Sprite::create("images/enConstruccion.jpg");
+
+	/*auto background = Sprite::create("images/enConstruccion.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
@@ -195,6 +203,55 @@ bool Game13::init()
 	//contactListener->onContactBegin = CC_CALLBACK_1(Game13::onContactBegin, this);
 	//getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	*/
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+
+	this->background = Sprite::create("images/Game1.3/fondo2.jpg");
+	this->background->setPosition(Game13::screen().width / 2 - 10, Game13::screen().height / 2 - 10);
+	this->addChild(background, -1);
+
+	this->player = Sprite::create("images/Game1.3/Jugador.png"); // pajaro
+	this->player->setPosition(200, 350);
+	this->addChild(player, 10);
+
+
+	/*auto event_listener = EventListenerTouchAllAtOnce::create();
+
+	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
+	{
+		auto touch = *pTouches.begin();
+		auto openGl_location = touch->getLocation();
+
+		float distance;
+		distance = this->player->getPosition().getDistance(touch->getLocation());
+		if (distance < 30) {
+			return;
+		}
+	};
+
+	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
+
+		CCLOG("%f %f", player->getPositionX(), player->getPositionY());
+	};
+
+	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
+
+		auto touch = *pTouches.begin();
+		auto openGl_location = touch->getLocation();
+
+		auto move_action = MoveTo::create(0.001f, openGl_location);
+
+		player->setPosition(touch->getLocation());
+	};
+
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, player);*/
+
+	auto listener = EventListenerKeyboard::create();
+
+	listener->onKeyPressed = CC_CALLBACK_2(Game13::onKeyPressed, this);
+
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	return true;
 }

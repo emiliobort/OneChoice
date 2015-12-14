@@ -1,3 +1,5 @@
+#ifndef __GAME13_H__
+#define __GAME13_H__
 
 #pragma once
 
@@ -21,9 +23,12 @@ private:
 	Label *_timer;
 
 
+	Sprite* background;
+	Sprite* player;
+
 public:
 
-	Sprite *_backgroundSpriteArray[2];
+	int position;
 
 	void Game13::setPhysicisWorld(PhysicsWorld *world);
 
@@ -31,20 +36,15 @@ public:
 
 	void Game13::goToSelectScene(Ref *pSender);
 
-	//Sprite del jugador
-	Sprite *_playerSprite;
-
 	//Sprite boton
 	Sprite *_button;
 
 	//Funcion que controla el boton que se pulsa
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event);
 
-	void onKeyReleased(EventKeyboard::KeyCode keyCode, Event *event);
-
 	void update(float dt);
 
-	void contador();
+	void updatePosition(int i);
 
 	void goToOptionA(Ref *pSender);
 
@@ -58,5 +58,11 @@ public:
 	//Funcion para inicializar la escena
 	virtual bool init();
 
+	static Size screen()
+	{
+		return Director::getInstance()->getWinSize();
+	}
+
 	CREATE_FUNC(Game13);
 };
+#endif //__GAME13_H__
