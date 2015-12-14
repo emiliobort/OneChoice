@@ -5,76 +5,207 @@
 
 USING_NS_CC;
 
-/*void Game12::goToOptionA(Ref *pSender) {
-	auto scene = Game12a::createScene();
-	Director::getInstance()->pushScene(scene);
-}
+/*		Lista de posiciones de las piezas
 
-void Game12::goToOptionB(Ref *pSender) {
-	auto scene = Game12b::createScene();
-	Director::getInstance()->replaceScene(scene);
-}*/
+	pajaro			 901.6		 656.5
+	pie				 1036.3		 152.3
+	ojo				 690.9		 151.3
+	escarabajo		 864.6		 271.1
+	cruz			 298.6		 529.7
+	gato			 483.3		 408.9
+
+*/
+
 
 Scene* Game12::createScene()
 {
-	// 'scene' is an autorelease object
 	auto scene = Scene::create();
-
-	// 'layer' is an autorelease object
 	auto layer = Game12::create();
-
-	// add layer as a child to scene
 	scene->addChild(layer);
-
-	// return the scene
 	return scene;
 }
-
-void Game12::goToSelectScene(Ref *pSender) {
-	auto scene = SelectScene::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+bool Game12::onPlace(float spriteX, float spriteY, float posX, float posY)
+{
+	if (spriteX<posX + 20 && spriteX>posX - 20)
+	{
+		if (spriteY<posY + 20 && spriteY>posY - 20)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Game12::init()
 {
-
-
-	//////////////////////////////
-	// 1. super init first
 	if (!Layer::init())
 	{
 		return false;
 	}
+	piece_selected = 0;
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
+	this->background = Sprite::create("images/Game1.2/fondo_ok.jpg");
+	this->background->setPosition(Game12::screen().width / 2-10, Game12::screen().height / 2-10);
+	this->addChild(background, -1);
 
-	// Inicializando el Fondo
+	this->piece1 = Sprite::create("images/Game1.2/piece1.png"); // pajaro
+	this->piece1->setPosition(130, 430);
+	this->addChild(piece1, 10);
 
-	auto background = Sprite::create("images/enConstruccion.jpg");
+	this->piece2 = Sprite::create("images/Game1.2/piece2.png"); // pie
+	this->piece2->setPosition(130, 315);
+	this->addChild(piece2, 10);
 
-	background->setPosition(Point((visibleSize.width / 2),
-		(visibleSize.height / 2)));
+	this->piece3 = Sprite::create("images/Game1.2/piece3.png"); // ojo
+	this->piece3->setPosition(130, 200);
+	this->addChild(piece3, 10);
 
-	addChild(background, 0);
+	this->piece4 = Sprite::create("images/Game1.2/piece4.png"); // escarabajo
+	this->piece4->setPosition(1150, 430);
+	this->addChild(piece4, 10);
 
-	/*
+	this->piece5 = Sprite::create("images/Game1.2/piece5.png"); // cruz
+	this->piece5->setPosition(1150, 315);
+	this->addChild(piece5, 10);
 
-	_piece1 = Sprite::create("images/Game1.2/piece1.png");
+	this->piece6 = Sprite::create("images/Game1.2/piece6.png"); // gato
+	this->piece6->setPosition(1150, 200);
+	this->addChild(piece6, 10);
 
-	_piece1->setPosition(Point(visibleSize.width / 4, visibleSize.height - _piece1->getContentSize().height / 2));
+	auto event_listener = EventListenerTouchAllAtOnce::create();
 
-	addChild(_piece1, 1);
-	
-	*/
+	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
+	{
+		auto touch = *pTouches.begin();
+		auto openGl_location = touch->getLocation();
+		
+		float distance;
+		if (!piece1_placed)
+		{
+			distance = this->piece1->getPosition().getDistance(touch->getLocation());
+			if (distance < 30) {
+				piece_selected = 1;
+				return;
+			}
+		}
+		if (!piece2_placed)
+		{
+			distance = this->piece2->getPosition().getDistance(touch->getLocation());
+			if (distance < 30) {
+				piece_selected = 2;
+				return;
+			}
+		}
+		if (!piece3_placed)
+		{
+			distance = this->piece3->getPosition().getDistance(touch->getLocation());
+			if (distance < 30) {
+				piece_selected = 3;
+				return;
+			}
+		}
+		if (!piece4_placed)
+		{
+			distance = this->piece4->getPosition().getDistance(touch->getLocation());
+			if (distance < 30) {
+				piece_selected = 4;
+				return;
+			}
+		}
+		if (!piece5_placed)
+		{
+			distance = this->piece5->getPosition().getDistance(touch->getLocation());
+			if (distance < 30) {
+				piece_selected = 5;
+				return;
+			}
+		}
+		if (!piece6_placed)
+		{
+			distance = this->piece6->getPosition().getDistance(touch->getLocation());
+			if (distance < 30) {
+				piece_selected = 6;
+				return;
+			}
+		}
+	};
 
-	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(Game12::goToSelectScene, this));
+	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
+		
 
-	auto back = Menu::create(backItem, NULL);
+		switch (piece_selected)
+		{
+		case 1:
+			if (onPlace(piece1->getPositionX(), piece1->getPositionY(), 901.6f, 656.5f)) {
+				piece1->setPositionX(901.6f);
+				piece1->setPositionY(656.5f);
+				piece1_placed = true;
+			}
+		case 2:		 
+			if (onPlace(piece2->getPositionX(), piece2->getPositionY(), 1036.3f, 152.3f)) {
+				piece2->setPositionX(1036.3f);
+				piece2->setPositionY(152.3f);
+				piece2_placed = true;
+			}
+		case 3:
+			if (onPlace(piece3->getPositionX(), piece3->getPositionY(), 690.9f, 147.3f)) {
+				piece3->setPositionX(690.9f);
+				piece3->setPositionY(147.3f);
+				piece3_placed = true;
+			}
+		case 4:
+			if (onPlace(piece4->getPositionX(), piece4->getPositionY(), 869.6f, 272.1f)) {
+				piece4->setPositionX(869.6f);
+				piece4->setPositionY(272.1f);
+				piece4_placed = true;
+			}
+		case 5:
+			if (onPlace(piece5->getPositionX(), piece5->getPositionY(), 297.5f, 530.7f)) {
+				piece5->setPositionX(297.5f);
+				piece5->setPositionY(530.7f);
+				piece5_placed = true;
+			}
+		case 6:
+			if (onPlace(piece6->getPositionX(), piece6->getPositionY(), 488.2f, 407.9f)) {
+				piece6->setPositionX(488.2f);
+				piece6->setPositionY(407.9f);
+				piece6_placed = true;
+			}
+		default:
+			break;
+		}
+		CCLOG("%f %f", piece3->getPositionX(), piece3->getPositionY());
+		piece_selected = 0;
+	};
 
-	back->setPosition(Vec2(300, 450));
+	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
 
-	addChild(back, 1);
+		auto touch = *pTouches.begin();
+		auto openGl_location = touch->getLocation();
+
+		auto move_action = MoveTo::create(0.001f, openGl_location);
+
+		if (piece_selected == 1) {
+			piece1->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 2) {
+			piece2->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 3) {
+			piece3->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 4) {
+			piece4->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 5) {
+			piece5->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 6) {
+			piece6->setPosition(touch->getLocation());
+		}
+	};
+
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, piece1);
 
 	return true;
 }
