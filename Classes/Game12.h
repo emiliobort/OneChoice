@@ -19,6 +19,10 @@ class Game12 : public Layer
 	bool piece4_placed = false;
 	bool piece5_placed = false;
 	bool piece6_placed = false;
+
+	int _time = 0;
+	Label *_timer;
+
 public:
 
 	int piece_selected;
@@ -28,6 +32,13 @@ public:
 	CREATE_FUNC(Game12);
 
 	bool onPlace(float spriteX, float spriteY, float posX, float posY);
+	bool isFinished();
+
+	void goToOptionA(Ref *pSender);
+
+	void goToOptionB(Ref *pSender);
+
+	void timer(float dt);
 
 	static Size screen()
 	{

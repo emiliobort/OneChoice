@@ -171,6 +171,7 @@ void Game11::timer(float dt) {
 
 	if (_time == 16) 
 	{
+		Global::_game11 = -1;
 		goToOptionB(this);
 	}
 }

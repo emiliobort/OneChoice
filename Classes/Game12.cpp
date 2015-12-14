@@ -1,4 +1,6 @@
 #include "Game12.h"
+#include "Game12a.h"
+#include "Game12b.h"
 
 #include "Global.h"
 #include "SelectScene.h"
@@ -24,6 +26,17 @@ Scene* Game12::createScene()
 	scene->addChild(layer);
 	return scene;
 }
+
+void Game12::goToOptionA(Ref *pSender) {
+	auto scene = Game12a::createScene();
+	Director::getInstance()->pushScene(scene);
+}
+
+void Game12::goToOptionB(Ref *pSender) {
+	auto scene = Game12b::createScene();
+	Director::getInstance()->replaceScene(scene);
+}
+
 bool Game12::onPlace(float spriteX, float spriteY, float posX, float posY)
 {
 	if (spriteX<posX + 20 && spriteX>posX - 20)
@@ -34,6 +47,31 @@ bool Game12::onPlace(float spriteX, float spriteY, float posX, float posY)
 		}
 	}
 	return false;
+}
+
+bool Game12::isFinished()
+{
+	if (piece1_placed)
+		if (piece2_placed)
+			if (piece3_placed)
+				if (piece4_placed)
+					if (piece5_placed)
+						if (piece6_placed)
+							return true;
+	return false;
+}
+
+void Game12::timer(float dt) {
+	_time++;
+
+	String *tiempo = String::createWithFormat("%d", 16 - _time);
+	_timer->setString(tiempo->getCString());
+
+	if (_time == 16)
+	{
+		Global::_game12 = -1;
+		goToOptionB(this);
+	}
 }
 
 bool Game12::init()
@@ -73,6 +111,9 @@ bool Game12::init()
 	this->addChild(piece6, 10);
 
 	auto event_listener = EventListenerTouchAllAtOnce::create();
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
 
 	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
 	{
@@ -174,8 +215,13 @@ bool Game12::init()
 		default:
 			break;
 		}
-		CCLOG("%f %f", piece3->getPositionX(), piece3->getPositionY());
+		//CCLOG("%f %f", piece3->getPositionX(), piece3->getPositionY());
 		piece_selected = 0;
+		if (isFinished())
+		{
+			Global::_game12 = 1;
+			goToOptionA(this);
+		}
 	};
 
 	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
@@ -205,6 +251,16 @@ bool Game12::init()
 		}
 	};
 
+	String *tiempo = String::createWithFormat("");
+	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/trebuc.ttf", 48);
+	_timer->setPosition(Vec2(visibleSize.width - 90, visibleSize.height - 50));
+	_timer->setTextColor(Color4B::WHITE);
+	_timer->setScale(1.3);
+
+	//Timer
+
+	addChild(_timer, 1);
+	this->schedule(schedule_selector(Game12::timer), 1.0);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, piece1);
 
 	return true;
