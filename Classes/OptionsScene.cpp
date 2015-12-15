@@ -99,8 +99,24 @@ bool OptionsScene::init()
 	addChild(back, 1);
 	addChild(reset, 10);
 
-	__String *text = __String::createWithFormat("Dificultad: media");
+	__String *text = __String::createWithFormat("Dificultad: media    ");
 	dificultad = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 48);
+
+	switch (Global::_max_time)
+	{
+	case 30:
+		dificultad->setString("Dificultad: facil    ");
+		break;
+	case 15:
+		dificultad->setString("Dificultad: media    ");
+		break;
+	case 10:
+		dificultad->setString("Dificultad: dificil  ");
+		break;
+	default:
+		break;
+	}
+	
 	dificultad->setTextColor(Color4B::BLACK);
 	dificultad->setPosition(Vec2(680, 630));
 	addChild(dificultad, 2);
