@@ -10,6 +10,7 @@ int Global::_game13;
 int Global::_game21;
 int Global::_game22;
 int Global::_game23;
+int Global::_max_time;
 
 USING_NS_CC;
 
@@ -60,7 +61,7 @@ bool Prueba::init()
 	Global::_game21 = 0;
 	Global::_game22 = 0;
 	Global::_game23 = 0;
-
+	Global::_max_time = 25;
 
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();

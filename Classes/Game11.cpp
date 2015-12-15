@@ -166,10 +166,10 @@ void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 void Game11::timer(float dt) {
 	_time++;
 
-	String *tiempo = String::createWithFormat("%d", 16-_time);
+	String *tiempo = String::createWithFormat("%d", Global::_max_time-_time);
 	_timer->setString(tiempo->getCString());
 
-	if (_time == 16) 
+	if (_time == Global::_max_time)
 	{
 		Global::_game11 = -1;
 		goToOptionB(this);
@@ -220,12 +220,12 @@ bool Game11::init()
 	addChild(_playerSprite, 1);
 
 	//inicializando los sprites de texto de kao  
-	_playerSprite = Sprite::create("images/Game1.1/texto_neandertal01.png");
+	/*_playerSprite = Sprite::create("images/Game1.1/texto_neandertal01.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 1.1));
 	_playerSprite->setScale(0.4f);
 
-	addChild(_playerSprite, 1);
+	addChild(_playerSprite, 1);*/
 
 
 

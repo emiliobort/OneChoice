@@ -140,9 +140,10 @@ bool Game13::init()
 		return false;
 	}
 
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 
-	/*auto background = Sprite::create("images/enConstruccion.jpg");
+	auto background = Sprite::create("images/enConstruccion.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
@@ -204,16 +205,14 @@ bool Game13::init()
 	//getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 	*/
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-
-	this->background = Sprite::create("images/Game1.3/fondo2.jpg");
+	//esto hay que descomentarlo despues del testing
+	/*this->background = Sprite::create("images/Game1.3/fondo2.jpg");
 	this->background->setPosition(Game13::screen().width / 2 - 10, Game13::screen().height / 2 - 10);
 	this->addChild(background, -1);
 
 	this->player = Sprite::create("images/Game1.3/Jugador.png"); // pajaro
 	this->player->setPosition(200, 350);
-	this->addChild(player, 10);
+	this->addChild(player, 10);*/
 
 
 	/*auto event_listener = EventListenerTouchAllAtOnce::create();
@@ -246,12 +245,14 @@ bool Game13::init()
 	};
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, player);*/
-
-	auto listener = EventListenerKeyboard::create();
+	
+	
+	//esto hay que descomentarlo despues del testing 
+	/*auto listener = EventListenerKeyboard::create();
 
 	listener->onKeyPressed = CC_CALLBACK_2(Game13::onKeyPressed, this);
 
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);*/
 
 	return true;
 }

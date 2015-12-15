@@ -9,5 +9,7 @@ public:
 	static int _game21;
 	static int _game22;
 	static int _game23;
+
+	static int _max_time;
 };
 

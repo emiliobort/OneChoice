@@ -38,65 +38,46 @@ void Game21::contador()
 
 	_score ++;
 
-	__String *text = __String::createWithFormat("Score %d    ", _score);
-	_labelScore->setString(text->getCString());
+	/*__String *text = __String::createWithFormat("Score %d    ", _score);
+	_labelScore->setString(text->getCString());*/
 
 	if (_score == 10)
 	{
 		_playerSprite->setTexture("images/Game2.1/arturo01.png ");
-		_aux = 1;
 	}
 
 	if (_score == 20)
 	{
 		_playerSprite->setTexture("images/Game2.1/arturo02.png");
-		_aux = 2;
 	}
 	if (_score == 30)
 	{
 		_playerSprite->setTexture("images/Game2.1/arturo03.png");
-		_aux = 2;
 	}
 
 	if (_score == 40)
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo04.png");
-		_aux = 3;
 	}
 
 	if (_score == 60)
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo05.png");
-		_aux = 3;
 	}
-
-	
 
 	if (_score == 80)
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo06.png");
-		_aux = 3;
 	}
 
 	if (_score == 90)
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo07.png");
-		_aux = 3;
 	}
-
-
-	if (_score >89 && _time == 15) //para comprobar que funciona
-	{
-
-		Global::_game21 = 1;
-		Game21::goToOptionA(this);
-	}
-
-
 }
 
 Scene* Game21::createScene()
@@ -127,12 +108,21 @@ void Game21::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 void Game21::timer(float dt) {
 	_time++;
 
-	String *tiempo = String::createWithFormat("%d", 15 - _time);
+	String *tiempo = String::createWithFormat("%d", Global::_max_time - _time);
 	_timer->setString(tiempo->getCString());
 
-	if (_time == 16)
+	if (_time == Global::_max_time)
 	{
-		goToOptionB(this);
+		if (_score >= 90) //para comprobar que funciona
+		{
+			Global::_game21 = 1;
+			goToOptionA(this);
+		}
+		else
+		{
+			Global::_game21 = -1;
+			goToOptionB(this);
+		}
 	}
 }
 
@@ -161,12 +151,12 @@ bool Game21::init()
 	
 	
 	//inicializando los sprites de texto de kao  
-	_playerSprite = Sprite::create("images/Game2.1/texto_arturo1.png");
+	/*_playerSprite = Sprite::create("images/Game2.1/texto_arturo1.png");
 
 	_playerSprite->setPosition(Point(visibleSize.width / 1.5, _playerSprite->getContentSize().height / 1.1));
 	_playerSprite->setScale(0.4f);
 
-	addChild(_playerSprite, 1);
+	addChild(_playerSprite, 1);*/
 	
 	//inicializando los sprites de arturo 
 
@@ -186,9 +176,9 @@ bool Game21::init()
 
 
 	//Coloca el Label donde se encuentra la puntuacion (numero de clicks ahora mismo)
-	__String *text = __String::createWithFormat("Score %d    ", _score);
+	/*__String *text = __String::createWithFormat("Score %d    ", _score);
 	_labelScore = Label::createWithTTF(text->getCString(), "fonts/trebuc.ttf", 24);
-	_labelScore->setPosition(Vec2(visibleSize.width - 190, visibleSize.height - 30));
+	_labelScore->setPosition(Vec2(visibleSize.width - 190, visibleSize.height - 30));*/
 
 	String *tiempo = String::createWithFormat("");
 	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/trebuc.ttf", 48);
@@ -198,7 +188,7 @@ bool Game21::init()
 
 	//Timer
 
-	addChild(_labelScore, 1);
+	//addChild(_labelScore, 1);
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game21::timer), 1.0);
 

@@ -64,10 +64,10 @@ bool Game12::isFinished()
 void Game12::timer(float dt) {
 	_time++;
 
-	String *tiempo = String::createWithFormat("%d", 16 - _time);
+	String *tiempo = String::createWithFormat("%d", Global::_max_time*2 - _time);
 	_timer->setString(tiempo->getCString());
 
-	if (_time == 16)
+	if (_time == Global::_max_time*2)
 	{
 		Global::_game12 = -1;
 		goToOptionB(this);
