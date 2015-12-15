@@ -65,7 +65,7 @@ bool Game21a::init()
 
 	this->schedule(schedule_selector(Game21a::timer), 1.0);
 
-	auto background = Sprite::create("images/game2.1/Bien21.jpg");
+	auto background = Sprite::create("images/game2.1/Bien.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));

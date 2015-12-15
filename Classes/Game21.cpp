@@ -77,6 +77,9 @@ void Game21::contador()
 	{
 
 		_playerSprite->setTexture("images/Game2.1/arturo07.png");
+
+		Global::_game21 = 1;
+		goToOptionA(this);
 	}
 }
 
@@ -112,19 +115,13 @@ void Game21::timer(float dt) {
 	_timer->setString(tiempo->getCString());
 
 	if (_time == Global::_max_time)
-	{
-		if (_score >= 90) //para comprobar que funciona
-		{
-			Global::_game21 = 1;
-			goToOptionA(this);
-		}
-		else
+		
 		{
 			Global::_game21 = -1;
 			goToOptionB(this);
 		}
 	}
-}
+
 
 bool Game21::init()
 {
