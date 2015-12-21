@@ -25,16 +25,27 @@ private:
 
 	Sprite* background;
 	Sprite* player;
+	Sprite* enemigo;
 
 public:
 
+
+	std::list<cocos2d::Node *> _enemigos;
+
+
 	int position;
 
-	void Game13::setPhysicisWorld(PhysicsWorld *world);
+	void spawnEnemy(float dt);
+	void enemyDone(Node *pSender);
 
-	bool Game13::onContactBegin(PhysicsContact &contact);
 
-	void Game13::goToSelectScene(Ref *pSender);
+	void setPhysicisWorld(PhysicsWorld *world);
+
+	bool onContactBegin(PhysicsContact &contact);
+
+	void goToSelectScene(Ref *pSender);
+
+	void Game13::checkColission(int x, int y);
 
 	//Sprite boton
 	Sprite *_button;
@@ -62,6 +73,7 @@ public:
 	{
 		return Director::getInstance()->getWinSize();
 	}
+
 
 	CREATE_FUNC(Game13);
 };

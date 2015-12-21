@@ -41,21 +41,8 @@ void Game13::goToSelectScene(Ref *pSender) {
 }
 
 void Game13::update(float dt) {
-	/*Size visibleSize = Director::getInstance()->getVisibleSize();
-	auto background = Sprite::create("images/Game1.3/fondo2.jpg");
-
-	auto *move = (FiniteTimeAction *)MoveBy::create(2 / 0.3f, Point(0, -visibleSize.height + background->getContentSize().height));
-
-	move->retain();
-	// Scrolls Background
-	for (int i = 0; i < 2; i++)
-	{
-		if (_backgroundSpriteArray[i]->getPosition().y < (visibleSize.height*-0.5))
-			_backgroundSpriteArray[i]->setPosition(Point(visibleSize.width / 2, visibleSize.height*1.5f));
-
-		else
-			_backgroundSpriteArray[i]->setPosition(Point(_backgroundSpriteArray[i]->getPosition().x, _backgroundSpriteArray[i]->getPosition().y - (0.3f * visibleSize.height*dt)));
-	}*/
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	auto background = Sprite::create("images/Game1.3/fondo_completo.jpg");
 }
 
 void Game13::updatePosition(int i) 
@@ -76,20 +63,22 @@ void Game13::updatePosition(int i)
 
 void Game13::setPhysicisWorld(PhysicsWorld *world) {
 	mWorld = world;
-	mWorld->setGravity(Vec2::ZERO);
-}
-
-bool Game13::onContactBegin(PhysicsContact &contact) {
-	Global::_game13 = -1; 
-	goToOptionB(this);
-	return true;
+	//mWorld->setGravity(Vec2::ZERO);
 }
 
 Scene* Game13::createScene()
 {
+	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
+
+	// 'layer' is an autorelease object
 	auto layer = Game13::create();
+	layer->setPhysicisWorld(scene->getPhysicsWorld());
+
+	// add layer as a child to scene
 	scene->addChild(layer);
+
+	// return the scene
 	return scene;
 }
 
@@ -118,20 +107,85 @@ void Game13::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 }
 
 void Game13::timer(float dt) {
-	_time++;
-
-	String *tiempo = String::createWithFormat("time %d    ", _time);
-	_timer->setString(tiempo->getCString());
+	
 
 }
+
+void Game13::checkColission(int x, int y) {
+	switch (position)
+	{
+	case(1) :
+		if (x<200 + 320 / 2 - 1)
+			if (y>520.0f && y < 560.0f) {
+				Global::_game13 = -1;
+				goToOptionB(this);
+	}
+		break;
+	case(0) :
+		if (x<200 + 320 / 2 - 1)
+			if (y>330.0f && y < 570.0f) {
+				Global::_game13 = -1;
+				goToOptionB(this);
+			}
+		break;
+	case(-1) :
+		if (x <200 + 320 - 1)
+			if (y>540.0f && y < 580.0f)
+			{
+				Global::_game13 = -1;
+				goToOptionB(this);
+			}
+		break;
+	default:
+		break;
+	}
+}
+
+void Game13::spawnEnemy(float dt) {
+ int enemyIndex = (std::rand() % 2 + 1);
+ __String *filename = __String::createWithFormat("images/Game1.3/Enemigo_0%i.png",enemyIndex);
+ Sprite *tempEnemy = Sprite::create(filename->getCString());
+ int yRandomPosition = (std::rand() % 3 -1);
+ int posY;
+ switch (yRandomPosition)
+ {
+ case(1) :
+	 posY = 540.0f;
+	 break;
+ case(0) :
+	 posY = 350.0f;
+	 break;
+ case(-1) :
+	 posY = 160.0f;
+	 break;
+ default:
+	 break;
+ }
+ tempEnemy->setPosition(Point(screen().width,posY));
+
+ auto *move = (FiniteTimeAction *)MoveBy::create(3.0f, Point(-screen().width*3.99, screen().height / 2 - tempEnemy->getBoundingBox().size.height));
+ move->retain();
+
+ checkColission(tempEnemy->getPositionX(),tempEnemy->getPositionY());
+
+ auto *seq = Sequence::create(move, CallFuncN::create(CC_CALLBACK_1(Game13::enemyDone, this)), NULL);
+ seq->retain();
+
+ _enemigos.push_back(tempEnemy);
+
+ tempEnemy->runAction(seq);
+	
+	addChild(tempEnemy, 2);
+}void Game13::enemyDone(Node *pSender) {
+	pSender->stopAllActions();
+	_enemigos.remove(pSender);
+	removeChild(pSender);
+}
 
 bool Game13::init()
 {
 	//for keyboard
 	_pressedKey = EventKeyboard::KeyCode::KEY_NONE;
-	_carro = Vec2::ZERO;
-	_isMoving = false;
-
 
 	//////////////////////////////
 	// 1. super init first
@@ -143,116 +197,31 @@ bool Game13::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 
-	auto background = Sprite::create("images/enConstruccion.jpg");
+	
 
-	background->setPosition(Point((visibleSize.width / 2),
-		(visibleSize.height / 2)));
+	//esto hay que descomentarlo despues del testing
+	this->background = Sprite::create("images/Game1.3/fondo_completo.jpg");
+	this->background->setPosition(screen().width / 2 - 10, screen().height / 2 - 10);
+	this->addChild(background, -1);
 
-	addChild(background, 0);
+	this->player = Sprite::create("images/Game1.3/Jugador.png"); // pajaro
+	this->player->setPosition(200, 350);
+	this->addChild(player, 10);
 
-	auto backItem = MenuItemImage::create("images/SelectGame/Back.png", "images/SelectGame/Back_click.png", CC_CALLBACK_1(Game13::goToSelectScene, this));
-
-	auto back = Menu::create(backItem, NULL);
-
-	back->setPosition(Vec2(300, 450));
-
-	addChild(back, 1);
-
-
-	//A partir de aqui hay que tocar cosas, de momento dejo el apartado de en construccion
-	/*
-	//Loading scrollable background
-
-	for (int i = 0; i < 2; i++)
-	{
-		_backgroundSpriteArray[i] = Sprite::create("images/Game1.3/fondo2.jpg");
-		_backgroundSpriteArray[i]->setPosition(Point(visibleSize.width / 2 , visibleSize.height/2 + (i + 0.5f)));
-
-		addChild(_backgroundSpriteArray[i], 0);
-	}
-
-	//Loading player sprite
-
-	_playerSprite = Sprite::create("images/Game1.3/Jugador.png");
-
-	_playerSprite->setPosition(Point(500,500));
-
-	addChild(_playerSprite, 1);
-
-	this->scheduleUpdate();
-
-	//this->schedule(schedule_selector(GameScene::spawnAsteroid), 1.0);
-
-	//this->schedule(schedule_selector(GameScene::moveBackground), 1.0);
-
-	//Setting and binding keyboard callbacks
+	
+	//esto hay que descomentarlo despues del testing 
 	auto listener = EventListenerKeyboard::create();
 
 	listener->onKeyPressed = CC_CALLBACK_2(Game13::onKeyPressed, this);
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//PhysicsBody for each Sprite
+	auto *move = (Action *)MoveTo::create(30.0f, Point(-screen().width*3.99, screen().height / 2));
+	background->runAction(move);
 
-	auto body = PhysicsBody::createCircle(_playerSprite->getBoundingBox().size.width / 2);
-	body->setContactTestBitmask(true);
-	body->setDynamic(true);
-	_playerSprite->setPhysicsBody(body);
+	this->scheduleUpdate();
 
-	//if meteor impact with pod
-	//auto contactListener = EventListenerPhysicsContact::create();
-	//contactListener->onContactBegin = CC_CALLBACK_1(Game13::onContactBegin, this);
-	//getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-	*/
-
-	//esto hay que descomentarlo despues del testing
-	/*this->background = Sprite::create("images/Game1.3/fondo2.jpg");
-	this->background->setPosition(Game13::screen().width / 2 - 10, Game13::screen().height / 2 - 10);
-	this->addChild(background, -1);
-
-	this->player = Sprite::create("images/Game1.3/Jugador.png"); // pajaro
-	this->player->setPosition(200, 350);
-	this->addChild(player, 10);*/
-
-
-	/*auto event_listener = EventListenerTouchAllAtOnce::create();
-
-	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
-	{
-		auto touch = *pTouches.begin();
-		auto openGl_location = touch->getLocation();
-
-		float distance;
-		distance = this->player->getPosition().getDistance(touch->getLocation());
-		if (distance < 30) {
-			return;
-		}
-	};
-
-	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
-
-		CCLOG("%f %f", player->getPositionX(), player->getPositionY());
-	};
-
-	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
-
-		auto touch = *pTouches.begin();
-		auto openGl_location = touch->getLocation();
-
-		auto move_action = MoveTo::create(0.001f, openGl_location);
-
-		player->setPosition(touch->getLocation());
-	};
-
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, player);*/
-	
-	
-	//esto hay que descomentarlo despues del testing 
-	/*auto listener = EventListenerKeyboard::create();
-
-	listener->onKeyPressed = CC_CALLBACK_2(Game13::onKeyPressed, this);
-
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);*/
+	this->schedule(schedule_selector(Game13::spawnEnemy), 0.5f);
 
 	return true;
 }
