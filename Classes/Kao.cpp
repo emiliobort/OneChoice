@@ -23,16 +23,10 @@ Scene* Kao::createScene()
 	return scene;
 }
 
-void Kao::startGame(Ref *pSender) {
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
-	auto scene = MainMenuScene::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));;
-}
-
 void Kao::goToSelectScene(Ref *pSender) {
 	auto scene = SelectScene::createScene();
 	Director::getInstance()->pushScene(scene);
+	Director::getInstance()->replaceScene(TransitionTurnOffTiles::create(1.0, scene));
 }
 
 void Kao::contador()

@@ -31,7 +31,7 @@ void MainMenuScene::Kao(Ref *pSender) {
 
 	auto scene = Kao::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionCrossFade::create(1.0, scene));;
 }
 
 void MainMenuScene::optionScene(Ref *pSender) {
@@ -39,7 +39,7 @@ void MainMenuScene::optionScene(Ref *pSender) {
 	
 	auto scene = OptionsScene::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionShrinkGrow::create(1.0, scene));;
 }
 
 // on "init" you need to initialize your instance

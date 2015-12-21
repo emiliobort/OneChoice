@@ -27,7 +27,7 @@ void OptionsScene::goToMainMenu(Ref *pSender) {
 	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
 	auto scene = MainMenuScene::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionShrinkGrow::create(1.0, scene));;
 }
 
 void OptionsScene::reset(Ref *pSender) 

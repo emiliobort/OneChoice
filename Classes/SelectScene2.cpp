@@ -28,14 +28,14 @@ void SelectScene2::startGame(Ref *pSender){
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game21::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionProgressOutIn::create(1.0, scene));;
 }
 
 void SelectScene2::MainMenuScene(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = MainMenuScene::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));;
 }
 
 void SelectScene2::goToSelectScene(Ref *pSender) {
@@ -50,14 +50,14 @@ void SelectScene2::goToGame12(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game12::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionProgressInOut::create(1.0, scene));;
 }
 
 void SelectScene2::goToGame13(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game13::createScene();
 
-	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
+	Director::getInstance()->replaceScene(TransitionProgressOutIn::create(1.0, scene));;
 }
 */
 

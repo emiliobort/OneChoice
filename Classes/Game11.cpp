@@ -86,6 +86,26 @@ Scene* Game11::createScene()
 	return scene;
 }
 
+void Game11::animfuego(float dt) {
+	switch (fasefuego)
+	{
+	case(1) :
+		fuego->setTexture("images/Game1.1/Fuego/Fuego_1.png");
+		fasefuego = 2;
+		break;
+	case(2) :
+		fuego->setTexture("images/Game1.1/Fuego/Fuego_2.png");
+		fasefuego = 3;
+		break;
+	case(3) :
+		fuego->setTexture("images/Game1.1/Fuego/Fuego_3.png");
+		fasefuego = 1;
+		break;
+	default:
+		break;
+	}
+}
+
 void Game11::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	_pressedKey = keyCode;
 
@@ -212,12 +232,12 @@ bool Game11::init()
 	addChild(_playerSprite, 1);
 
 	//inicializando los sprites de rueda y fuego 
-	_playerSprite = Sprite::create("images/Game1.1/Fuego.png");
+	fuego = Sprite::create("images/Game1.1/Fuego/Fuego_1.png");
 
-	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
-	_playerSprite->setScale(0.7f);
+	fuego->setPosition(Point(9*visibleSize.width /16, fuego->getContentSize().height / 2 -50));
+	fuego->setScale(0.4f);
 
-	addChild(_playerSprite, 1);
+	addChild(fuego, 1);
 
 	//inicializando los sprites de texto de kao  
 	/*_playerSprite = Sprite::create("images/Game1.1/texto_neandertal01.png");
@@ -266,6 +286,7 @@ bool Game11::init()
 
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game11::timer), 1.0);
+	this->schedule(schedule_selector(Game11::animfuego), 0.3);
 
 	return true;
 }

@@ -17,10 +17,13 @@ private:
 	int _time = 0;
 	Label *_timer;
 
+	int fasefuego = 1;
 
 public:
 	//Sprite del jugador
 	Sprite *_playerSprite;
+
+	Sprite *fuego;
 
 	//Sprite boton
 	Sprite *_button;
@@ -36,6 +39,8 @@ public:
 	void goToOptionB(Ref *pSender);
 
 	void timer(float dt);
+
+	void animfuego(float dt);
 
 	//Funcion para crear la escena
 	static cocos2d::Scene* createScene();
