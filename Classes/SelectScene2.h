@@ -17,6 +17,8 @@ public:
 
 	void goToGame13(Ref *pSender);
 
+	void checkResults();
+
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 

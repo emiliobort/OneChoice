@@ -4,7 +4,7 @@
 #include "Game21.h"
 //#include "Game22.h"
 //#include "Game23.h"
-
+#include "Global.h"
 
 USING_NS_CC;
 
@@ -61,6 +61,67 @@ void SelectScene2::goToGame13(Ref *pSender) {
 }
 */
 
+void SelectScene2::checkResults()
+{
+	auto res21 = Sprite::create();
+	auto res22 = Sprite::create();
+	auto res23 = Sprite::create();
+
+	switch (Global::_game21)
+	{
+	case(1) :
+		res21->setTexture("images/SelectGame/tick.png");
+		res21->setPosition(Point(330, 550));
+		res21->setScale(0.15f);
+		addChild(res21, 2);
+		break;
+	case(-1) :
+		res21->setTexture("images/SelectGame/cross.png");
+		res21->setPosition(Point(385, 550));
+		res21->setScale(0.15f);
+		addChild(res21, 2);
+		break;
+	default:
+		break;
+	}
+
+	switch (Global::_game12)
+	{
+	case(1) :
+		res22->setTexture("images/SelectGame/tick.png");
+		res22->setPosition(Point(755, 550));
+		res22->setScale(0.15f);
+		addChild(res22, 2);
+		break;
+	case(-1) :
+		res22->setTexture("images/SelectGame/cross.png");
+		res22->setPosition(Point(810, 550));
+		res22->setScale(0.15f);
+		addChild(res22, 2);
+		break;
+	default:
+		break;
+	}
+
+	switch (Global::_game13)
+	{
+	case(1) :
+		res23->setTexture("images/SelectGame/tick.png");
+		res23->setPosition(Point(1155, 550));
+		res23->setScale(0.15f);
+		addChild(res23, 2);
+		break;
+	case(-1) :
+		res23->setTexture("images/SelectGame/cross.png");
+		res23->setPosition(Point(1210, 550));
+		res23->setScale(0.15f);
+		addChild(res23, 2);
+		break;
+	default:
+		break;
+	}
+}
+
 // on "init" you need to initialize your instance
 bool SelectScene2::init()
 {
@@ -101,6 +162,7 @@ bool SelectScene2::init()
 	back->setPosition(Vec2(1150/1.25, 650/1.3));
 	selectScene->setPosition(Vec2(50, 350));
 
+	checkResults();
 
 
 //(1150, 450) coords del siguiente boton

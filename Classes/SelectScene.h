@@ -1,6 +1,8 @@
 #ifndef __SELECT_SCENE_H__
 #define __SELECT_SCENE_H__
 
+#pragma once
+
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 
@@ -8,15 +10,17 @@ class SelectScene : public cocos2d::Layer
 {
 public:
 
-	void SelectScene::goToSelectScene2(Ref *pSender);
+	void goToSelectScene2(Ref *pSender);
 
 	void startGame(Ref *pSender);
 
-	void SelectScene::MainMenuScene(Ref *pSender);
+	void MainMenuScene(Ref *pSender);
 
-	void SelectScene::goToGame12(Ref *pSender);
+	void goToGame12(Ref *pSender);
 
-	void SelectScene::goToGame13(Ref *pSender);
+	void goToGame13(Ref *pSender);
+
+	void checkResults();
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();

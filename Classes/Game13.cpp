@@ -196,8 +196,13 @@ bool Game13::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
+	auto backItem = MenuItemImage::create("images/flechas/inicio.png", "images/flechas/inicio.png", CC_CALLBACK_1(Game13::goToSelectScene, this));
+	auto back = Menu::create(backItem, NULL);
+	back->setPosition(Vec2(0, 0));
+	back->setScale(0.5f);
+	back->setPosition(Vec2(1150 / 1.25, 650 / 1.3));
+	addChild(back, 3);
 
-	
 
 	//esto hay que descomentarlo despues del testing
 	this->background = Sprite::create("images/Game1.3/fondo_completo.jpg");

@@ -31,8 +31,7 @@ public:
 
 
 	std::list<cocos2d::Node *> _enemigos;
-
-
+	
 	int position;
 
 	void spawnEnemy(float dt);
