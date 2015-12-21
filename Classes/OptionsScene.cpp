@@ -33,7 +33,7 @@ void OptionsScene::goToMainMenu(Ref *pSender) {
 void OptionsScene::reset(Ref *pSender) 
 {
 	auto scene = Prueba::createScene();
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));;
 }
 
@@ -59,6 +59,22 @@ void OptionsScene::setDifficult(int i)
 		dificultad->setString("Dificultad: dificil  ");
 		return;
 	}
+}
+
+void OptionsScene::musicOnOff() {
+	if (Global::musicPlayed)
+	{
+		this->music->setTexture("images/flechas/musicaOff.png");
+		CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+		Global::musicPlayed = false;
+	}
+	else
+	{
+		this->music->setTexture("images/flechas/musica.png");
+		CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+		Global::musicPlayed = true;
+	}
+
 }
 
 
@@ -142,6 +158,10 @@ bool OptionsScene::init()
 	this->hard->setPosition(860, 515);
 	this->addChild(hard, 10);
 
+	this->music = Sprite::create("images/flechas/musica.png");
+	this->music->setPosition(1243, 690);
+	this->addChild(music, 10);
+
 	auto event_listener = EventListenerTouchAllAtOnce::create();
 
 
@@ -164,6 +184,11 @@ bool OptionsScene::init()
 		distance = this->hard->getPosition().getDistance(touch->getLocation());
 		if (distance < 30) {
 			setDifficult(2);
+			return;
+		}
+		distance = this->music->getPosition().getDistance(touch->getLocation());
+		if (distance < 40) {
+			musicOnOff();
 			return;
 		}
 	};

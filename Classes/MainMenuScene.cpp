@@ -5,6 +5,7 @@
 #include "Kao.h"
 #include "OptionsScene.h"
 #include "SimpleAudioEngine.h"
+#include "Global.h"
 
 USING_NS_CC;
 
@@ -26,35 +27,25 @@ Scene* MainMenuScene::createScene()
 
 
 void MainMenuScene::Kao(Ref *pSender) {
-	
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
+
 	auto scene = Kao::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void MainMenuScene::optionScene(Ref *pSender) {
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	
 	auto scene = OptionsScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
-
-void MainMenuScene::pauseMusic() {
-	if (musicMuted)
-	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
-	}
-	else
-	{
-		CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-	}
-}
-
 // on "init" you need to initialize your instance
 bool MainMenuScene::init()
 {
-	
+
 	//////////////////////////////
 	// 1. super init first
 	if (!Layer::init())
@@ -91,24 +82,20 @@ bool MainMenuScene::init()
 
 	//audio
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/ButtonClick.wav");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/Crash.wav");
-
-
-	// Inicializando el Sprite del jugador
-
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/boton1.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/boton2.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/starwars.mp3");
 
 
 
 	//background music
 
-	/*auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	if (audio->isBackgroundMusicPlaying()==false)
+	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	if (!audio->isBackgroundMusicPlaying() && Global::musicPlayed) 
 	{
-	audio->preloadBackgroundMusic("audio/Music.mp3");
-	audio->playBackgroundMusic("audio/Music.mp3", true);
-	musicMuted = false;
-	}*/
+		audio->playBackgroundMusic("audio/starwars.mp3",true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
 
 	return true;
 }

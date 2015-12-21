@@ -25,21 +25,21 @@ Scene* SelectScene2::createScene()
 }
 
 void SelectScene2::startGame(Ref *pSender){
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game21::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene2::MainMenuScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene2::goToSelectScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = SelectScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionSlideInL::create(1.0, scene));;
@@ -47,14 +47,14 @@ void SelectScene2::goToSelectScene(Ref *pSender) {
 
 /*
 void SelectScene2::goToGame12(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game12::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene2::goToGame13(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game13::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
@@ -85,7 +85,7 @@ void SelectScene2::checkResults()
 		break;
 	}
 
-	switch (Global::_game12)
+	switch (Global::_game22)
 	{
 	case(1) :
 		res22->setTexture("images/SelectGame/tick.png");
@@ -103,7 +103,7 @@ void SelectScene2::checkResults()
 		break;
 	}
 
-	switch (Global::_game13)
+	switch (Global::_game23)
 	{
 	case(1) :
 		res23->setTexture("images/SelectGame/tick.png");

@@ -81,5 +81,13 @@ bool PauseScene::init()
 	_game1->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
 
 	addChild(_game1,1);
+
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/boton1.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/boton2.mp3");
+
+
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/starwars.mp3");
+
 	return true;
 }

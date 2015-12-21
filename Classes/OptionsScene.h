@@ -19,10 +19,12 @@ private:
 	Sprite* easy;
 	Sprite* medium;
 	Sprite* hard;
+	Sprite *music;
 public:
 
 	void goToMainMenu(Ref *pSender);
 	void setDifficult(int i);
+	void musicOnOff();
 
 	void reset(Ref *pSender);
 

@@ -26,35 +26,35 @@ Scene* SelectScene::createScene()
 }
 
 void SelectScene::startGame(Ref *pSender){
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game11::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene::MainMenuScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene::goToGame12(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game12::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene::goToGame13(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game13::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFlipY::create(1.0, scene));;
 }
 
 void SelectScene::goToSelectScene2(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = SelectScene2::createScene();
 
 	Director::getInstance()->replaceScene(TransitionSlideInR::create(1.0, scene));;
