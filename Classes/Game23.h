@@ -10,13 +10,14 @@ class Game23 : public Layer
 
 
 	Sprite* background;
-	Sprite* piece1;
-	Sprite* piece2;
-	Sprite* piece3;
-	Sprite* piece4;
-	Sprite* piece5;
-	Sprite* piece6;
-	Sprite* piece7;
+	Sprite* sacos1;
+	Sprite* sacos2;
+	Sprite* sacos3;
+	Sprite* sacos4;
+	Sprite* sacos5;
+	Sprite* sacos6;
+	Sprite* sacos7;
+	Sprite* sacos8;
 	bool piece1_placed = false;
 	bool piece2_placed = false;
 	bool piece3_placed = false;
@@ -34,7 +35,7 @@ public:
 
 
 
-	int piece_selected;
+	int muertos=0;
 
 	virtual bool init();
 	static Scene* createScene();

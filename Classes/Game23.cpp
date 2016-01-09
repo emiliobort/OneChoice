@@ -32,13 +32,23 @@ void Game23::naziDead(int naziID)
 	switch (naziID)
 	{
 	case 1:
-		piece4->runAction(fadeOut);
+		sacos4->runAction(fadeOut);
+		muertos++;
+		
 		break;
 	case 2:
-		piece5->runAction(fadeOut);
+		sacos5->runAction(fadeOut);
+		muertos++;
+		
 		break;
 	case 3:
-		piece6->runAction(fadeOut);
+		sacos6->runAction(fadeOut);
+		muertos++;
+		
+		break;
+	case 4:
+		muertos++;
+		
 		break;
 	default:
 		break;
@@ -54,13 +64,22 @@ bool Game23::isFinished()
 void Game23::timer(float dt) {
 	_time++;
 
-	String *tiempo = String::createWithFormat("%d", Global::_max_time*2 - _time);
+	String *tiempo = String::createWithFormat("%d", Global::_max_time - _time);
 	_timer->setString(tiempo->getCString());
 
-	if (_time == Global::_max_time*2)
+	if (_time == Global::_max_time)
 	{
-		Global::_game23 = -1;
-		goToOptionB(this);
+		if (muertos == 4)
+		{
+			Global::_game23 = 1;
+			goToOptionA(this);
+		}
+		else
+		{
+			Global::_game23 = -1;
+			goToOptionB(this);
+		}
+
 	}
 }
 
@@ -109,43 +128,49 @@ bool Game23::init()
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 
-	piece_selected = 0;
-
 	this->background = Sprite::create("images/Game2.3/escenario.jpg");
 	this->background->setPosition(Game23::screen().width / 2, Game23::screen().height / 2);
 	this->addChild(background, -1);
 
-	this->piece1 = Sprite::create("images/Game2.3/sacos1.png"); // pajaro
-	this->piece1->setPosition(540, 190);
-	this->addChild(piece1, 9);
+	this->sacos1 = Sprite::create("images/Game2.3/sacos1.png"); // pajaro
+	this->sacos1->setPosition(540, 190);
+	this->addChild(sacos1, 9);
 
-	this->piece2 = Sprite::create("images/Game2.3/sacos2.png"); // pie
-	this->piece2->setPosition(940, 355);
-	this->addChild(piece2, 7);
+	this->sacos2 = Sprite::create("images/Game2.3/sacos2.png"); // pie
+	this->sacos2->setPosition(940, 355);
+	this->addChild(sacos2, 7);
 
-	this->piece3 = Sprite::create("images/Game2.3/sacos3.png"); // ojo
-	this->piece3->setPosition(360, 440);
-	this->addChild(piece3, 5);
+	this->sacos3 = Sprite::create("images/Game2.3/sacos3.png"); // ojo
+	this->sacos3->setPosition(360, 440);
+	this->addChild(sacos3, 5);
 
-	this->piece4 = Sprite::create("images/Game2.3/nazi1.png"); // escarabajo
-	this->piece4->setPosition(575, 310);
-	this->addChild(piece4, 8);
+	this->sacos4 = Sprite::create("images/Game2.3/nazi1.png"); // escarabajo
+	this->sacos4->setPosition(575, 310);
+	this->addChild(sacos4, 8);
 
-	this->piece5 = Sprite::create("images/Game2.3/nazi2.png"); // cruz
-	this->piece5->setPosition(930, 450);
-	this->addChild(piece5, 6);
+	this->sacos5 = Sprite::create("images/Game2.3/nazi2.png"); // cruz
+	this->sacos5->setPosition(930, 450);
+	this->addChild(sacos5, 6);
 
-	this->piece6 = Sprite::create("images/Game2.3/nazi3.png"); // gato
-	this->piece6->setPosition(380, 520);
-	this->addChild(piece6, 4);
+	this->sacos6 = Sprite::create("images/Game2.3/nazi3.png"); // gato
+	this->sacos6->setPosition(380, 520);
+	this->addChild(sacos6, 4);
 
-	this->piece7 = Sprite::create("images/Game2.3/tanque.png"); // gato
-	this->piece7->setPosition(0, 250);
-	this->addChild(piece7, 10);
+	this->sacos7 = Sprite::create("images/Game2.3/tanque.png"); // gato
+	this->sacos7->setPosition(-480, 250);
+	this->addChild(sacos7, 10);
 
-	auto moveBy = MoveBy::create(30, Vec2(2500, 0));
+	this->sacos8 = Sprite::create("images/Game2.3/hitler.png"); // gato
+	this->sacos8->setPosition(-595, 400);
+	this->addChild(sacos8, 10);
 
-	piece7->runAction(moveBy);
+	auto moveBy = MoveBy::create(Global::_max_time, Vec2(2240, 0));
+
+	sacos7->runAction(moveBy);
+
+	auto moveBy2 = MoveBy::create(Global::_max_time, Vec2(2240, 0));
+
+	sacos8->runAction(moveBy2);
 
 	auto event_listener = EventListenerTouchAllAtOnce::create();
 
@@ -158,64 +183,34 @@ bool Game23::init()
 		auto openGl_location = touch->getLocation();
 		
 		float distance;
-			distance = this->piece4->getPosition().getDistance(touch->getLocation());
+			distance = this->sacos4->getPosition().getDistance(touch->getLocation());
 			if (distance < 80) {
 				naziDead(1);
-				piece4->setTexture("images/Game2.3/nazi1d.png");
+				sacos4->setTexture("images/Game2.3/nazi1d.png");
 				return;
 			}
 
-			distance = this->piece5->getPosition().getDistance(touch->getLocation());
+			distance = this->sacos5->getPosition().getDistance(touch->getLocation());
 			if (distance < 80) {
 				naziDead(2);
-				piece5->setTexture("images/Game2.3/nazi2d.png");
+				sacos5->setTexture("images/Game2.3/nazi2d.png");
 				return;
 			}
 
-			distance = this->piece6->getPosition().getDistance(touch->getLocation());
+			distance = this->sacos6->getPosition().getDistance(touch->getLocation());
 			if (distance < 80) {
 				naziDead(3);
-				piece6->setTexture("images/Game2.3/nazi3d.png");
+				sacos6->setTexture("images/Game2.3/nazi3d.png");
+				return;
+			}
+			distance = this->sacos8->getPosition().getDistance(touch->getLocation());
+			if (distance < 80) {
+				naziDead(4);
+				sacos8->setTexture("images/Game2.3/hitlerd.png");
 				return;
 			}
 	};
 
-	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
-
-		piece_selected = 0;
-		if (isFinished())
-		{
-			Global::_game23 = 1;
-			goToOptionA(this);
-		}
-	};
-
-	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
-
-		auto touch = *pTouches.begin();
-		auto openGl_location = touch->getLocation();
-
-		auto move_action = MoveTo::create(0.001f, openGl_location);
-
-		if (piece_selected == 1) {
-			piece1->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 2) {
-			piece2->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 3) {
-			piece3->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 4) {
-			piece4->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 5) {
-			piece5->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 6) {
-			piece7->setPosition(touch->getLocation());
-		}
-	};
 
 	String *tiempo = String::createWithFormat("");
 	_timer = Label::createWithTTF(tiempo->getCString(), "fonts/trebuc.ttf", 48);
@@ -227,7 +222,7 @@ bool Game23::init()
 
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game23::timer), 1.0);
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, piece1);
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, sacos1);
 
 	return true;
 }

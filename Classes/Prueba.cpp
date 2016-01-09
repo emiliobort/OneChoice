@@ -62,7 +62,7 @@ bool Prueba::init()
 	Global::_game21 = 0;
 	Global::_game22 = 0;
 	Global::_game23 = 0;
-	Global::_max_time = 25;
+	Global::_max_time = 15;
 	Global::musicPlayed = true;
 
 

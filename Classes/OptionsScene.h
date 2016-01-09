@@ -26,6 +26,7 @@ public:
 	void setDifficult(int i);
 	void musicOnOff();
 
+
 	void reset(Ref *pSender);
 
 

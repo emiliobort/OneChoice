@@ -2,13 +2,13 @@
 #include "GameScene.h"
 #include "Game23.h"
 #include "MainMenuScene.h"
-#include "SelectScene.h"
+#include "SelectScene2.h"
 
 USING_NS_CC;
 
 
 void Game23a::goToSelectScene(Ref *pSender) {
-	auto scene = SelectScene::createScene();
+	auto scene = SelectScene2::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 

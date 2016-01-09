@@ -44,19 +44,25 @@ void OptionsScene::setDifficult(int i)
 	if (i == 0) 
 	{
 		Global::_max_time = 30;
-		dificultad->setString("Facil  ");
+		easy->setOpacity(255);
+		medium->setOpacity(125);
+		hard->setOpacity(125);
 		return;
 	}
 	if (i == 1)
 	{
 		Global::_max_time = 15;
-		dificultad->setString("Media  ");
+		medium->setOpacity(255);
+		easy->setOpacity(125);
+		hard->setOpacity(125);
 		return;
 	}
 	if (i == 2)
 	{
 		Global::_max_time = 10;
-		dificultad->setString("Dificil");
+		hard->setOpacity(255);
+		medium->setOpacity(125);
+		easy->setOpacity(125);
 		return;
 	}
 }
@@ -114,32 +120,10 @@ bool OptionsScene::init()
 	addChild(back, 1);
 	addChild(reset, 10);
 
-	__String *text = __String::createWithFormat("Media");
-	dificultad = Label::createWithTTF(text->getCString(), "fonts/ariblk.ttf", 48);
-
-	switch (Global::_max_time)
-	{
-	case 30:
-		dificultad->setString("Facil  ");
-		break;
-	case 15:
-		dificultad->setString("Media  ");
-		break;
-	case 10:
-		dificultad->setString("Dificil");
-		break;
-	default:
-		break;
-	}
-	
-	dificultad->setTextColor(Color4B::WHITE);
-	dificultad->setPosition(Vec2(725, 495));
-	addChild(dificultad, 2);
-
 	this->easy = Sprite::create("images/OptionsScreen/facil.jpg");
 	this->easy->setPosition(197, 418);
 	this->addChild(easy, 10);
-		
+
 	this->medium = Sprite::create("images/OptionsScreen/media.jpg");
 	this->medium->setPosition(411, 418);
 	this->addChild(medium, 10);
@@ -151,6 +135,27 @@ bool OptionsScene::init()
 	this->music = Sprite::create("images/OptionsScreen/on.jpg");
 	this->music->setPosition(304, 260);
 	this->addChild(music, 10);
+
+	switch (Global::_max_time)
+	{
+	case 30:
+		hard->setOpacity(125);
+		medium->setOpacity(125);
+		easy->setOpacity(255);
+		break;
+	case 15:
+		hard->setOpacity(125);
+		medium->setOpacity(255);
+		easy->setOpacity(125);
+		break;
+	case 10:
+		hard->setOpacity(255);
+		medium->setOpacity(125);
+		easy->setOpacity(125);
+		break;
+	default:
+		break;
+	}
 
 	auto event_listener = EventListenerTouchAllAtOnce::create();
 

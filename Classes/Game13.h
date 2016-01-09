@@ -17,13 +17,6 @@ private:
 	void animEnemigo(float dt);
 
 	EventKeyboard::KeyCode _pressedKey;
-	Vec2 _carro;
-	bool _isMoving;
-
-	PhysicsWorld *mWorld;
-
-	int _score = 0;
-	Label *_labelScore;
 	int _aux = 0;
 
 	int _time = 0;

@@ -2,11 +2,11 @@
 #include "GameScene.h"
 #include "Game22.h"
 #include "MainMenuScene.h"
-#include "SelectScene.h"
+#include "SelectScene2.h"
 
 USING_NS_CC;
 void Game22b::goToSelectScene(Ref *pSender) {
-	auto scene = SelectScene::createScene();
+	auto scene = SelectScene2::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 
