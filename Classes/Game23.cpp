@@ -26,27 +26,28 @@ void Game23::goToOptionB(Ref *pSender) {
 	Director::getInstance()->replaceScene(scene);
 }
 
-bool Game23::onPlace(float spriteX, float spriteY, float posX, float posY)
+void Game23::naziDead(int naziID)
 {
-	if (spriteX<posX + 20 && spriteX>posX - 20)
+	auto fadeOut = FadeOut::create(2.0f);
+	switch (naziID)
 	{
-		if (spriteY<posY + 20 && spriteY>posY - 20)
-		{
-			return true;
-		}
+	case 1:
+		piece4->runAction(fadeOut);
+		break;
+	case 2:
+		piece5->runAction(fadeOut);
+		break;
+	case 3:
+		piece6->runAction(fadeOut);
+		break;
+	default:
+		break;
 	}
-	return false;
+	return;
 }
 
 bool Game23::isFinished()
 {
-	if (piece1_placed)
-		if (piece2_placed)
-			if (piece3_placed)
-				if (piece4_placed)
-					if (piece5_placed)
-						if (piece6_placed)
-							return true;
 	return false;
 }
 
@@ -138,6 +139,14 @@ bool Game23::init()
 	this->piece6->setPosition(380, 520);
 	this->addChild(piece6, 4);
 
+	this->piece7 = Sprite::create("images/Game2.3/tanque.png"); // gato
+	this->piece7->setPosition(0, 250);
+	this->addChild(piece7, 10);
+
+	auto moveBy = MoveBy::create(30, Vec2(2500, 0));
+
+	piece7->runAction(moveBy);
+
 	auto event_listener = EventListenerTouchAllAtOnce::create();
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -149,46 +158,29 @@ bool Game23::init()
 		auto openGl_location = touch->getLocation();
 		
 		float distance;
-		if (!piece4_placed)
-		{
 			distance = this->piece4->getPosition().getDistance(touch->getLocation());
-			if (distance < 30) {
-				piece_selected = 4;
+			if (distance < 80) {
+				naziDead(1);
+				piece4->setTexture("images/Game2.3/nazi1d.png");
 				return;
 			}
-		}
-		if (!piece5_placed)
-		{
+
 			distance = this->piece5->getPosition().getDistance(touch->getLocation());
-			if (distance < 30) {
-				piece_selected = 5;
+			if (distance < 80) {
+				naziDead(2);
+				piece5->setTexture("images/Game2.3/nazi2d.png");
 				return;
 			}
-		}
-		if (!piece6_placed)
-		{
+
 			distance = this->piece6->getPosition().getDistance(touch->getLocation());
-			if (distance < 30) {
-				piece_selected = 6;
+			if (distance < 80) {
+				naziDead(3);
+				piece6->setTexture("images/Game2.3/nazi3d.png");
 				return;
 			}
-		}
 	};
 
 	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
-		
-
-		switch (piece_selected)
-		{
-		case 4:
-			CCLOG("%f %f", piece4->getPositionX(), piece4->getPositionY());
-		case 5:
-			CCLOG("%f %f", piece5->getPositionX(), piece5->getPositionY());
-		case 6:
-			CCLOG("%f %f", piece6->getPositionX(), piece6->getPositionY());
-		default:
-			break;
-		}
 
 		piece_selected = 0;
 		if (isFinished())
@@ -221,7 +213,7 @@ bool Game23::init()
 			piece5->setPosition(touch->getLocation());
 		}
 		if (piece_selected == 6) {
-			piece6->setPosition(touch->getLocation());
+			piece7->setPosition(touch->getLocation());
 		}
 	};
 

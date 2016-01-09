@@ -16,6 +16,7 @@ class Game23 : public Layer
 	Sprite* piece4;
 	Sprite* piece5;
 	Sprite* piece6;
+	Sprite* piece7;
 	bool piece1_placed = false;
 	bool piece2_placed = false;
 	bool piece3_placed = false;
@@ -39,7 +40,7 @@ public:
 	static Scene* createScene();
 	CREATE_FUNC(Game23);
 
-	bool onPlace(float spriteX, float spriteY, float posX, float posY);
+	void naziDead(int naziID);
 	bool isFinished();
 
 	void goToOptionA(Ref *pSender);
