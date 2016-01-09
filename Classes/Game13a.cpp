@@ -38,6 +38,47 @@ void Game13a::timer(float dt)
 	}
 }
 
+void Game13a::animfondo(float dt)
+{
+	switch (fasefondo)
+	{
+	case(1) :
+		cesar->setTexture("images/Game1.3/Bien/bien2.png");
+		fasefondo = 2;
+		break;
+	case(2) :
+		cesar->setTexture("images/Game1.3/Bien/bien3.png");
+		fasefondo = 3;
+		break;
+	case(3) :
+		cesar->setTexture("images/Game1.3/Bien/bien4.png");
+		fasefondo = 4;
+		break;
+	case(4) :
+		cesar->setTexture("images/Game1.3/Bien/bien1.png");
+		fasefondo = 5;
+		break;
+	case(5) :
+		cesar->setTexture("images/Game1.3/Bien/bien2.png");
+		fasefondo = 6;
+		break;
+	case(6) :
+		cesar->setTexture("images/Game1.3/Bien/bien3.png");
+		fasefondo = 7;
+		break;
+	case(7) :
+		cesar->setTexture("images/Game1.3/Bien/bien4.png");
+		fasefondo = 8;
+		break;
+	case(8) :
+		Game13a::goToSelectScene(this);
+		break;
+
+	default:
+		break;
+	}
+}
+
 // on "init" you need to initialize your instance
 bool Game13a::init()
 {
@@ -62,7 +103,7 @@ bool Game13a::init()
 	addChild(menu, 1);
 	*/
 
-	auto image = Sprite::create("images/game1.1/bien.png");
+	/*auto image = Sprite::create("images/game1.1/bien.png");
 
 	image->setPosition(Point((visibleSize.width / 2.5),(visibleSize.height / 3.2)));
 	image->setScale(0.6f);
@@ -77,7 +118,24 @@ bool Game13a::init()
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
-	addChild(background, 0);
+	addChild(background, 0);*/
+
+	fondo = Sprite::create("images/game1.3/Bien/Bien.jpg");
+
+	fondo->setPosition(Point((visibleSize.width / 2),
+		(visibleSize.height / 2)));
+
+	addChild(fondo, 0);
+
+	cesar = Sprite::create("images/game1.3/Bien/bien1.png");
+
+	cesar->setPosition(Point((visibleSize.width / 2),
+		(visibleSize.height / 2)));
+	cesar->setScale(0.9f);
+
+	addChild(cesar, 0);
+
+	this->schedule(schedule_selector(Game13a::animfondo), 0.4);
 
 	return true;
 }

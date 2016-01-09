@@ -36,6 +36,35 @@ void Game11a::timer(float dt)
 	}
 }
 
+void Game11a::animfondo(float dt)
+{
+	switch (fasefondo)
+	{
+	case(1) :
+		fondo->setTexture("images/Game1.1/Bien/bien2.jpg");
+		fasefondo = 2;
+		break;
+	case(2) :
+		fondo->setTexture("images/Game1.1/Bien/bien3.jpg");
+		fasefondo = 3;
+		break;
+	case(3) :
+		fondo->setTexture("images/Game1.1/Bien/bien4.jpg");
+		fasefondo = 4;
+		break;
+	case(4) :
+		fondo->setTexture("images/Game1.1/Bien/bien5.jpg");
+		fasefondo = 5;
+		break;
+	case(5) :
+		Game11a::goToSelectScene(this);
+		break;
+
+	default:
+		break;
+	}
+}
+
 // on "init" you need to initialize your instance
 bool Game11a::init()
 {
@@ -60,14 +89,18 @@ bool Game11a::init()
 	addChild(menu, 1);
 	*/
 
-	auto image = Sprite::create("images/game1.1/bien.png");
+	/*	//solo mueve al personaje
+	auto image = Sprite::create("images/game1.1/Bien/bien1.png");
 
 	image->setPosition(Point((visibleSize.width / 2.5),(visibleSize.height / 3.2)));
 	image->setScale(0.6f);
 
+
+	auto *move = (Action *)MoveTo::create(4.0f, Vec2(image->getPositionX()+ visibleSize.width, visibleSize.height / 3.2));
+	image->runAction(move);
+
 	addChild(image, 1);
 
-	
 
 	this->schedule(schedule_selector(Game11a::timer), 1.0);
 
@@ -76,7 +109,18 @@ bool Game11a::init()
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
-	addChild(background, 0);
+	addChild(background, 0);*/
+
+	//cambia fondo
+
+	fondo = Sprite::create("images/game1.1/Bien/bien1.jpg");
+
+	fondo->setPosition(Point((visibleSize.width / 2),
+		(visibleSize.height / 2)));
+
+	addChild(fondo, 0); 
+
+	this->schedule(schedule_selector(Game11a::animfondo), 0.4);
 
 	return true;
 

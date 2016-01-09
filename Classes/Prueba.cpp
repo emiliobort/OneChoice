@@ -70,7 +70,7 @@ bool Prueba::init()
 
 
 
-	auto background = Sprite::create("images/CompanyScene/empresa.jpg");
+	auto background = Sprite::create("images/MainMenuScreen/empresa.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));

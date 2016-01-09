@@ -59,8 +59,8 @@ bool MainMenuScene::init()
 
 	//auto menuTitle = MenuItemImage::create("images/MainMenuScreen/Game_Title.png", "images/MainMenuScreen/Game_Title.png");
 
-	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play_click.jpg", CC_CALLBACK_1(MainMenuScene::Kao, this));
-	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options_click.jpg", CC_CALLBACK_1(MainMenuScene::optionScene, this));
+	auto playItem = MenuItemImage::create("images/MainMenuScreen/play.jpg", "images/MainMenuScreen/play.jpg", CC_CALLBACK_1(MainMenuScene::Kao, this));
+	auto optionItem = MenuItemImage::create("images/MainMenuScreen/options.jpg", "images/MainMenuScreen/options.jpg", CC_CALLBACK_1(MainMenuScene::optionScene, this));
 
 
 	auto play = Menu::create(playItem, NULL);
@@ -73,7 +73,7 @@ bool MainMenuScene::init()
 	addChild(option, 1);
 
 
-	auto background = Sprite::create("images/MainMenuScreen/Background.jpg");
+	auto background = Sprite::create("images/MainMenuScreen/inicio.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
@@ -93,7 +93,7 @@ bool MainMenuScene::init()
 	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
 	if (!audio->isBackgroundMusicPlaying() && Global::musicPlayed) 
 	{
-		audio->playBackgroundMusic("audio/starwars.mp3",true);
+		//audio->playBackgroundMusic("audio/starwars.mp3",true);
 		audio->setBackgroundMusicVolume(0.7f);
 	}
 

@@ -9,6 +9,13 @@ USING_NS_CC;
 class Game13 : public cocos2d::Layer
 {
 private:
+	int fasejugador=1;
+	int faseenemigo=1;
+
+	void animJugador(float dt);
+
+	void animEnemigo(float dt);
+
 	EventKeyboard::KeyCode _pressedKey;
 	Vec2 _carro;
 	bool _isMoving;

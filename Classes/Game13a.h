@@ -2,13 +2,21 @@
 #define __GAME11A_SCENE_H__
 
 #include "cocos2d.h"
+USING_NS_CC;
 
 class Game13a : public cocos2d::Layer
 {
+	int fasefondo = 1;
+
 public:
+	Sprite *fondo;
+	Sprite *cesar;
 	int _time;
 
 	void timer(float dt);
+
+	void animfondo(float dt);
+
 
 	void goToSelectScene(Ref *pSender);
 

@@ -100,6 +100,14 @@ void Game13::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 				updatePosition(position);
 			}
 			break;
+		case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+			Global::_game13 = 1;
+			goToOptionA(this);
+			break;
+		case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+			Global::_game13 = -1;
+			goToOptionB(this);
+			break;
 		default:
 			break;
 	}
@@ -109,6 +117,32 @@ void Game13::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 void Game13::timer(float dt) {
 	
 
+}
+
+void Game13::animEnemigo(float dt)
+{
+
+}
+
+void Game13::animJugador(float dt)
+{
+	switch (fasejugador)
+	{
+	case(1) :
+		player->setTexture("images/Game1.3/Jugador/CuadrigaA2.png");
+		fasejugador = 2;
+		break;
+	case(2) :
+		player->setTexture("images/Game1.3/Jugador/CuadrigaA3.png");
+		fasejugador = 3;
+		break;
+	case(3) :
+		player->setTexture("images/Game1.3/Jugador/CuadrigaA1.png");
+		fasejugador = 1;
+		break;
+	default:
+		break;
+	}
 }
 
 void Game13::checkColission(int x, int y) {
@@ -142,9 +176,10 @@ void Game13::checkColission(int x, int y) {
 }
 
 void Game13::spawnEnemy(float dt) {
- int enemyIndex = (std::rand() % 2 + 1);
- __String *filename = __String::createWithFormat("images/Game1.3/Enemigo_0%i.png",enemyIndex);
+ int enemyIndex = (std::rand() % 2 );
+ __String *filename = __String::createWithFormat("images/Game1.3/Cuadriga%i1.png",enemyIndex);
  Sprite *tempEnemy = Sprite::create(filename->getCString());
+ tempEnemy->setScale(0.9f);
  int yRandomPosition = (std::rand() % 3 -1);
  int posY;
  switch (yRandomPosition)
@@ -163,7 +198,25 @@ void Game13::spawnEnemy(float dt) {
  }
  tempEnemy->setPosition(Point(screen().width,posY));
 
- auto *move = (FiniteTimeAction *)MoveBy::create(3.0f, Point(-screen().width*3.99, screen().height / 2 - tempEnemy->getBoundingBox().size.height));
+ 
+
+
+
+ 
+ 
+ 
+ //Arreglar movimiento de los carros y colisiones
+
+
+
+
+
+
+
+
+
+ //auto *move = (FiniteTimeAction *)MoveBy::create(3.0f, Vec2(-screen().width*3.99, screen().height / 2 - tempEnemy->getBoundingBox().size.height));
+ auto *move = (FiniteTimeAction *)MoveBy::create(3.0f, Vec2(-screen().width*3.99, tempEnemy->getPositionY()));
  move->retain();
 
  checkColission(tempEnemy->getPositionX(),tempEnemy->getPositionY());
@@ -209,8 +262,9 @@ bool Game13::init()
 	this->background->setPosition(screen().width / 2 - 10, screen().height / 2 - 10);
 	this->addChild(background, -1);
 
-	this->player = Sprite::create("images/Game1.3/Jugador.png"); // pajaro
+	this->player = Sprite::create("images/Game1.3/Jugador/CuadrigaA1.png");
 	this->player->setPosition(200, 350);
+	this->player->setScale(0.9f);
 	this->addChild(player, 10);
 
 	
@@ -227,6 +281,8 @@ bool Game13::init()
 	this->scheduleUpdate();
 
 	this->schedule(schedule_selector(Game13::spawnEnemy), 0.5f);
+
+	this->schedule(schedule_selector(Game13::animJugador), 0.3f);
 
 	return true;
 }

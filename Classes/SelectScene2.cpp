@@ -2,8 +2,8 @@
 #include "SelectScene.h"
 #include "MainMenuScene.h"
 #include "Game21.h"
-//#include "Game22.h"
-//#include "Game23.h"
+#include "Game22.h"
+#include "Game23.h"
 #include "Global.h"
 
 USING_NS_CC;
@@ -45,21 +45,21 @@ void SelectScene2::goToSelectScene(Ref *pSender) {
 	Director::getInstance()->replaceScene(TransitionSlideInL::create(1.0, scene));;
 }
 
-/*
-void SelectScene2::goToGame12(Ref *pSender) {
+
+void SelectScene2::goToGame22(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
-	auto scene = Game12::createScene();
+	auto scene = Game22::createScene();
 
 	Director::getInstance()->replaceScene(TransitionProgressInOut::create(1.0, scene));;
 }
 
-void SelectScene2::goToGame13(Ref *pSender) {
+void SelectScene2::goToGame23(Ref *pSender) {
 	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
-	auto scene = Game13::createScene();
+	auto scene = Game23::createScene();
 
 	Director::getInstance()->replaceScene(TransitionProgressOutIn::create(1.0, scene));;
 }
-*/
+
 
 void SelectScene2::checkResults()
 {
@@ -72,13 +72,11 @@ void SelectScene2::checkResults()
 	case(1) :
 		res21->setTexture("images/SelectGame/tick.png");
 		res21->setPosition(Point(330, 550));
-		res21->setScale(0.15f);
 		addChild(res21, 2);
 		break;
 	case(-1) :
 		res21->setTexture("images/SelectGame/cross.png");
 		res21->setPosition(Point(385, 550));
-		res21->setScale(0.15f);
 		addChild(res21, 2);
 		break;
 	default:
@@ -90,13 +88,11 @@ void SelectScene2::checkResults()
 	case(1) :
 		res22->setTexture("images/SelectGame/tick.png");
 		res22->setPosition(Point(755, 550));
-		res22->setScale(0.15f);
 		addChild(res22, 2);
 		break;
 	case(-1) :
 		res22->setTexture("images/SelectGame/cross.png");
 		res22->setPosition(Point(810, 550));
-		res22->setScale(0.15f);
 		addChild(res22, 2);
 		break;
 	default:
@@ -108,13 +104,11 @@ void SelectScene2::checkResults()
 	case(1) :
 		res23->setTexture("images/SelectGame/tick.png");
 		res23->setPosition(Point(1155, 550));
-		res23->setScale(0.15f);
 		addChild(res23, 2);
 		break;
 	case(-1) :
 		res23->setTexture("images/SelectGame/cross.png");
 		res23->setPosition(Point(1210, 550));
-		res23->setScale(0.15f);
 		addChild(res23, 2);
 		break;
 	default:
@@ -137,29 +131,27 @@ bool SelectScene2::init()
 	// Creating Menu
 
 
-	auto backItem = MenuItemImage::create("images/flechas/inicio.png", "images/flechas/inicio.png", CC_CALLBACK_1(SelectScene2::MainMenuScene, this));
+	auto backItem = MenuItemImage::create("images/SelectGame/volver.jpg", "images/SelectGame/volver.jpg", CC_CALLBACK_1(SelectScene2::MainMenuScene, this));
 
-	auto game21Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene2::startGame, this));
+	auto game21Item = MenuItemImage::create("images/SelectGame/empezar4.jpg", "images/SelectGame/empezar4.jpg", CC_CALLBACK_1(SelectScene2::startGame, this));
 
-	//auto game22Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene2::goToGame12, this));
+	auto game22Item = MenuItemImage::create("images/SelectGame/empezar5.jpg", "images/SelectGame/empezar5.jpg", CC_CALLBACK_1(SelectScene2::goToGame22, this));
 
-	//auto game23Item = MenuItemImage::create("images/SelectGame/Start.png", "images/SelectGame/Start_click.png", CC_CALLBACK_1(SelectScene2::goToGame13, this));
+	auto game23Item = MenuItemImage::create("images/SelectGame/empezar6.jpg", "images/SelectGame/empezar6.jpg", CC_CALLBACK_1(SelectScene2::goToGame23, this));
 
-	auto selectSceneItem = MenuItemImage::create("images/flechas/volver.png", "images/flechas/volver.png", CC_CALLBACK_1(SelectScene2::goToSelectScene, this));
+	auto selectSceneItem = MenuItemImage::create("images/SelectGame/flcizq.png", "images/SelectGame/flcizq.png", CC_CALLBACK_1(SelectScene2::goToSelectScene, this));
 
 	auto back = Menu::create(backItem, NULL);
 	auto game21 = Menu::create(game21Item, NULL);
-	//auto game22 = Menu::create(game22Item, NULL);
-	//auto game23 = Menu::create(game23Item, NULL);
+	auto game22 = Menu::create(game22Item, NULL);
+	auto game23 = Menu::create(game23Item, NULL);
 	auto selectScene = Menu::create(selectSceneItem, NULL);
 
-	game21->setPosition(Vec2(300, 450));
-	//game22->setPosition(Vec2(725, 450));
-	//game23->setPosition(Vec2(1125, 450));
+	game21->setPosition(Vec2(200, 300));
+	game22->setPosition(Vec2(635, 300));
+	game23->setPosition(Vec2(1055, 300));
 	
-	back->setPosition(Vec2(0, 0));
-	back->setScale(0.5f);
-	back->setPosition(Vec2(1150/1.25, 650/1.3));
+	back->setPosition(Vec2(1150, 650));
 	selectScene->setPosition(Vec2(50, 350));
 
 	checkResults();
@@ -171,12 +163,13 @@ bool SelectScene2::init()
 
 	addChild(selectScene, 3);
 
-	//addChild(game23, 2);
+	addChild(game23, 2);
 
-	//addChild(game22, 2);
+	addChild(game22, 2);
 
 	addChild(game21, 1);
 
+	auto event_listener = EventListenerTouchAllAtOnce::create();
 
 	auto background = Sprite::create("images/SelectGame/media-moderna.jpg");
 

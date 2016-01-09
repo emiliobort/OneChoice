@@ -82,8 +82,8 @@ bool Game12::init()
 	}
 	piece_selected = 0;
 
-	this->background = Sprite::create("images/Game1.2/fondo_ok.jpg");
-	this->background->setPosition(Game12::screen().width / 2-10, Game12::screen().height / 2-10);
+	this->background = Sprite::create("images/Game1.2/Escenario.jpg");
+	this->background->setPosition(Game12::screen().width / 2, Game12::screen().height / 2);
 	this->addChild(background, -1);
 
 	this->piece1 = Sprite::create("images/Game1.2/piece1.png"); // pajaro
@@ -177,37 +177,37 @@ bool Game12::init()
 		switch (piece_selected)
 		{
 		case 1:
-			if (onPlace(piece1->getPositionX(), piece1->getPositionY(), 901.6f, 656.5f)) {
+			if (onPlace(piece1->getPositionX(), piece1->getPositionY(), 902.0f, 656.5f)) {
 				piece1->setPositionX(901.6f);
 				piece1->setPositionY(656.5f);
 				piece1_placed = true;
 			}
 		case 2:		 
-			if (onPlace(piece2->getPositionX(), piece2->getPositionY(), 1036.3f, 152.3f)) {
+			if (onPlace(piece2->getPositionX(), piece2->getPositionY(), 1037.0f, 152.3f)) {
 				piece2->setPositionX(1036.3f);
 				piece2->setPositionY(152.3f);
 				piece2_placed = true;
 			}
 		case 3:
-			if (onPlace(piece3->getPositionX(), piece3->getPositionY(), 690.9f, 147.3f)) {
+			if (onPlace(piece3->getPositionX(), piece3->getPositionY(), 691.0f, 147.3f)) {
 				piece3->setPositionX(690.9f);
 				piece3->setPositionY(147.3f);
 				piece3_placed = true;
 			}
 		case 4:
-			if (onPlace(piece4->getPositionX(), piece4->getPositionY(), 869.6f, 272.1f)) {
+			if (onPlace(piece4->getPositionX(), piece4->getPositionY(), 867.0f, 272.1f)) {
 				piece4->setPositionX(869.6f);
 				piece4->setPositionY(272.1f);
 				piece4_placed = true;
 			}
 		case 5:
-			if (onPlace(piece5->getPositionX(), piece5->getPositionY(), 297.5f, 530.7f)) {
+			if (onPlace(piece5->getPositionX(), piece5->getPositionY(), 298.0f, 530.7f)) {
 				piece5->setPositionX(297.5f);
 				piece5->setPositionY(530.7f);
 				piece5_placed = true;
 			}
 		case 6:
-			if (onPlace(piece6->getPositionX(), piece6->getPositionY(), 488.2f, 407.9f)) {
+			if (onPlace(piece6->getPositionX(), piece6->getPositionY(), 489.0f, 407.9f)) {
 				piece6->setPositionX(488.2f);
 				piece6->setPositionY(407.9f);
 				piece6_placed = true;

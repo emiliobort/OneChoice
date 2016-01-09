@@ -65,12 +65,19 @@ bool Game21a::init()
 
 	this->schedule(schedule_selector(Game21a::timer), 1.0);
 
-	auto background = Sprite::create("images/game2.1/Bien.jpg");
+	auto background = Sprite::create("images/game2.1/Bien/Bien.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
 
 	addChild(background, 0);
 
+	auto corona = Sprite::create("images/game2.1/Bien/corona_bien.png");
+	corona->setPosition(Vec2(380,(visibleSize.height+100)));
+
+	auto *move = (Action *)MoveTo::create(3.0f, Vec2(380, (visibleSize.height / 2)+120));
+	corona->runAction(move);
+
+	addChild(corona, 0);
 	return true;
 }

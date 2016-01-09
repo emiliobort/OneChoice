@@ -44,19 +44,19 @@ void OptionsScene::setDifficult(int i)
 	if (i == 0) 
 	{
 		Global::_max_time = 30;
-		dificultad->setString("Dificultad: facil    ");
+		dificultad->setString("Facil  ");
 		return;
 	}
 	if (i == 1)
 	{
 		Global::_max_time = 15;
-		dificultad->setString("Dificultad: media    ");
+		dificultad->setString("Media  ");
 		return;
 	}
 	if (i == 2)
 	{
 		Global::_max_time = 10;
-		dificultad->setString("Dificultad: dificil  ");
+		dificultad->setString("Dificil");
 		return;
 	}
 }
@@ -64,13 +64,13 @@ void OptionsScene::setDifficult(int i)
 void OptionsScene::musicOnOff() {
 	if (Global::musicPlayed)
 	{
-		this->music->setTexture("images/flechas/musicaOff.png");
+		this->music->setTexture("images/OptionsScreen/off.jpg");
 		CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 		Global::musicPlayed = false;
 	}
 	else
 	{
-		this->music->setTexture("images/flechas/musica.png");
+		this->music->setTexture("images/OptionsScreen/on.jpg");
 		CocosDenshion::SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 		Global::musicPlayed = true;
 	}
@@ -92,8 +92,7 @@ bool OptionsScene::init()
 
 	// Creating Menu
 
-
-	auto background = Sprite::create("images/opcionesfondo.jpg");
+	auto background = Sprite::create("images/OptionsScreen/fondo.jpg");
 
 	background->setPosition(Point((visibleSize.width / 2),
 		(visibleSize.height / 2)));
@@ -101,68 +100,64 @@ bool OptionsScene::init()
 	addChild(background, 0);
 
 
-	auto backItem = MenuItemImage::create("images/SelectGame/back.png", "images/SelectGame/back_click.png", CC_CALLBACK_1(OptionsScene::goToMainMenu, this));
-	auto resetItem = MenuItemImage::create("images/Testing/botones/reset.png", "images/Testing/botones/reset.png", CC_CALLBACK_1(OptionsScene::reset, this));
+	auto backItem = MenuItemImage::create("images/OptionsScreen/volver.jpg", "images/OptionsScreen/volver.jpg", CC_CALLBACK_1(OptionsScene::goToMainMenu, this));
+	auto resetItem = MenuItemImage::create("images/OptionsScreen/reset.jpg", "images/OptionsScreen/reset.jpg", CC_CALLBACK_1(OptionsScene::reset, this));
 
 
 	auto back = Menu::create(backItem, NULL);
 	auto reset = Menu::create(resetItem, NULL);
 
-	back->setPositionX(120); back->setPositionY(406);
-	reset->setPosition(Vec2(680, 140));
+	back->setPositionX(1147); back->setPositionY(654);
+	reset->setPosition(Vec2(197, 85));
 
 
 	addChild(back, 1);
 	addChild(reset, 10);
 
-	__String *text = __String::createWithFormat("Dificultad: media    ");
-	dificultad = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 48);
+	__String *text = __String::createWithFormat("Media");
+	dificultad = Label::createWithTTF(text->getCString(), "fonts/ariblk.ttf", 48);
 
 	switch (Global::_max_time)
 	{
 	case 30:
-		dificultad->setString("Dificultad: facil    ");
+		dificultad->setString("Facil  ");
 		break;
 	case 15:
-		dificultad->setString("Dificultad: media    ");
+		dificultad->setString("Media  ");
 		break;
 	case 10:
-		dificultad->setString("Dificultad: dificil  ");
+		dificultad->setString("Dificil");
 		break;
 	default:
 		break;
 	}
 	
-	dificultad->setTextColor(Color4B::BLACK);
-	dificultad->setPosition(Vec2(680, 630));
+	dificultad->setTextColor(Color4B::WHITE);
+	dificultad->setPosition(Vec2(725, 495));
 	addChild(dificultad, 2);
 
-
-	text = __String::createWithFormat("Nueva Partida");
-	newGame = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 48);
-	newGame->setTextColor(Color4B::BLACK);
-	newGame->setPosition(Vec2(680, 255));
-
-	addChild(newGame, 2);
-
-
-	this->easy = Sprite::create("images/Testing/botones/facil.png");
-	this->easy->setPosition(500, 515);
+	this->easy = Sprite::create("images/OptionsScreen/facil.jpg");
+	this->easy->setPosition(197, 418);
 	this->addChild(easy, 10);
-
-	this->medium = Sprite::create("images/Testing/botones/medio.png");
-	this->medium->setPosition(680, 515);
+		
+	this->medium = Sprite::create("images/OptionsScreen/media.jpg");
+	this->medium->setPosition(411, 418);
 	this->addChild(medium, 10);
 
-	this->hard = Sprite::create("images/Testing/botones/dificil.png");
-	this->hard->setPosition(860, 515);
+	this->hard = Sprite::create("images/OptionsScreen/dificil.jpg");
+	this->hard->setPosition(625, 418);
 	this->addChild(hard, 10);
 
-	this->music = Sprite::create("images/flechas/musica.png");
-	this->music->setPosition(1243, 690);
+	this->music = Sprite::create("images/OptionsScreen/on.jpg");
+	this->music->setPosition(304, 260);
 	this->addChild(music, 10);
 
 	auto event_listener = EventListenerTouchAllAtOnce::create();
+
+	if (!Global::musicPlayed)
+		this->music->setTexture("images/OptionsScreen/off.jpg");
+	else
+		this->music->setTexture("images/OptionsScreen/on.jpg");
 
 
 	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
@@ -192,6 +187,105 @@ bool OptionsScene::init()
 			return;
 		}
 	};
+
+	/*
+	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
+	{
+		auto touch = *pTouches.begin();
+		auto openGl_location = touch->getLocation();
+		float distance;
+
+		distance = this->easy->getPosition().getDistance(touch->getLocation());
+		if (distance < 30) {
+			piece_selected = 1;
+			return;
+		}
+
+		distance = this->medium->getPosition().getDistance(touch->getLocation());
+		if (distance < 30) {
+			piece_selected = 2;
+			return;
+		}
+
+		distance = this->hard->getPosition().getDistance(touch->getLocation());
+		if (distance < 30) {
+			piece_selected = 3;
+			return;
+		}
+
+		distance = this->music->getPosition().getDistance(touch->getLocation());
+		if (distance < 30) {
+			piece_selected = 4;
+			return;
+		}
+
+		distance = this->dificultad->getPosition().getDistance(touch->getLocation());
+		if (distance < 30) {
+			piece_selected = 5;
+			return;
+		}
+
+	};
+
+	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
+
+
+		switch (piece_selected)
+		{
+		case 1:
+			CCLOG("%f %f", easy->getPositionX(), easy->getPositionY());
+			
+			break;
+
+		case 2:
+			CCLOG("%f %f", medium->getPositionX(), medium->getPositionY());
+			
+			break;
+		case 3:
+			CCLOG("%f %f", hard->getPositionX(), hard->getPositionY());
+			
+			break;
+		case 4:
+			CCLOG("%f %f", music->getPositionX(), music->getPositionY());
+			
+			break;
+		case 5:
+			CCLOG("%f %f", dificultad->getPositionX(), dificultad->getPositionY());
+			
+			break;
+		default:
+			break;
+		}
+
+		piece_selected = 0;
+
+	};
+
+	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
+
+		auto touch = *pTouches.begin();
+		auto openGl_location = touch->getLocation();
+
+		auto move_action = MoveTo::create(0.001f, openGl_location);
+
+		if (piece_selected == 1) {
+			easy->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 2) {
+			medium->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 3) {
+			hard->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 4) {
+			music->setPosition(touch->getLocation());
+		}
+		if (piece_selected == 5) {
+			dificultad->setPosition(touch->getLocation());
+		}
+	};
+
+	*/
 
 	/*__String *text = __String::createWithFormat("Game11 %d   ", Global::_game11);
 	_game1_1 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);

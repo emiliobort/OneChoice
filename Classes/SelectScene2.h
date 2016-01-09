@@ -3,19 +3,23 @@
 
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
+USING_NS_CC;
 
 class SelectScene2 : public cocos2d::Layer
 {
+private:
+	Sprite* easy;
 public:
+	int piece_selected;
 	void startGame(Ref *pSender);
 
 	void MainMenuScene(Ref *pSender);
 
 	void SelectScene2::goToSelectScene(Ref *pSender);
 
-	void goToGame12(Ref *pSender);
+	void goToGame22(Ref *pSender);
 
-	void goToGame13(Ref *pSender);
+	void goToGame23(Ref *pSender);
 
 	void checkResults();
 

@@ -259,8 +259,8 @@ bool Game11::init()
 
 	_button = Sprite::create("images/Game1.1/up.png");
 
-	_button->setPosition(Point(visibleSize.width / 8 , _button->getContentSize().height * 5));
-	_button->setScale(2.0f);
+	_button->setPosition(Vec2(180, 480));
+	_button->setOpacity(180);
 
 	addChild(_button, 2);
 

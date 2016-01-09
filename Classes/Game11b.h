@@ -2,14 +2,20 @@
 #define __GAME11B_SCENE_H__
 
 #include "cocos2d.h"
-#include "SimpleAudioEngine.h"
+USING_NS_CC;
 
 class Game11b : public cocos2d::Layer
 {
+	int fasefondo = 1;
+
 public:
+	Sprite *fondo;
 	int _time;
 
 	void timer(float dt);
+
+	void animfondo(float dt);
+
 
 	void goToSelectScene(Ref *pSender);
 

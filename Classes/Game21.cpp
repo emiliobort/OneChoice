@@ -43,41 +43,45 @@ void Game21::contador()
 
 	if (_score == 10)
 	{
-		_playerSprite->setTexture("images/Game2.1/arturo01.png ");
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo01.png ");
 	}
 
 	if (_score == 20)
 	{
-		_playerSprite->setTexture("images/Game2.1/arturo02.png");
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo02.png");
 	}
 	if (_score == 30)
 	{
-		_playerSprite->setTexture("images/Game2.1/arturo03.png");
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo03.png");
 	}
 
 	if (_score == 40)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/arturo04.png");
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo04.png");
 	}
 
 	if (_score == 60)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/arturo05.png");
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo05.png");
 	}
 
 	if (_score == 80)
 	{
 
-		_playerSprite->setTexture("images/Game2.1/arturo06.png");
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo06.png");
+		_playerSprite->setPositionY(_playerSprite->getPositionY() + 15);
 	}
 
 	if (_score == 90)
 	{
+		_playerSprite->setTexture("images/Game2.1/Arturo/arturo07.png");
+		_playerSprite->setPositionY(_playerSprite->getPositionY() + 75);
 
-		_playerSprite->setTexture("images/Game2.1/arturo07.png");
-
+	}
+	if (_score == 91)
+	{
 		Global::_game21 = 1;
 		goToOptionA(this);
 	}
@@ -103,6 +107,14 @@ void Game21::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	if (_pressedKey == EventKeyboard::KeyCode::KEY_SPACE)
 	{
 		Game21::contador();
+	}
+	if (_pressedKey == EventKeyboard::KeyCode::KEY_A)
+	{
+		Game21::goToOptionA(this);
+	}
+	if (_pressedKey == EventKeyboard::KeyCode::KEY_B)
+	{
+		Game21::goToOptionB(this);
 	}
 }
 
@@ -145,6 +157,12 @@ bool Game21::init()
 
 	addChild(background, 0);
 
+	auto piedras = Sprite::create("images/Game2.1/Piedras.png");
+
+	piedras->setPosition(Point((visibleSize.width / 2),65));
+
+	addChild(piedras, 2);
+
 	
 	
 	//inicializando los sprites de texto de kao  
@@ -157,10 +175,9 @@ bool Game21::init()
 	
 	//inicializando los sprites de arturo 
 
-	_playerSprite = Sprite::create("images/Game2.1/arturo00.png");
+	_playerSprite = Sprite::create("images/Game2.1/Arturo/arturo00.png");
 
-	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2));
-	_playerSprite->setScale(0.6f);
+	_playerSprite->setPosition(Point(visibleSize.width / 2, _playerSprite->getContentSize().height / 2+50));
 
 	addChild(_playerSprite, 1);
 
