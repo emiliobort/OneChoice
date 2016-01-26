@@ -17,10 +17,12 @@ class Game22 : public Layer
 	Vec2 posMouse;
 
 	int _time = 0;
+	int aux = 0;
 	Label *_timer;
 
 	bool salida = false;
-	bool gameOn = false;
+	bool gameOn = true;
+	bool switchOn = false;
 
 public:	
 
@@ -37,7 +39,7 @@ public:
 	void check(float mouseX, float mouseY);
 
 	bool onTheWay(float mouseX, float mouseY);
-	bool isFinished();
+	void isFinished(float dt);
 
 	void onMouseMove(Event *event);
 

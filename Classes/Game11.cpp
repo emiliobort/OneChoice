@@ -288,5 +288,13 @@ bool Game11::init()
 	this->schedule(schedule_selector(Game11::timer), 1.0);
 	this->schedule(schedule_selector(Game11::animfuego), 0.3);
 
+	Global::phase = 0;
+
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/neo.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
+
 	return true;
 }

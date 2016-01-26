@@ -2,6 +2,7 @@
 #include "Game21a.h"
 #include "Game21b.h"
 #include "Global.h"
+#include "SelectScene2.h"
 
 USING_NS_CC;
 
@@ -205,6 +206,14 @@ bool Game21::init()
 	//addChild(_labelScore, 1);
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game21::timer), 1.0);
+
+	Global::phase = 0;
+
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/arturo.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
 
 	return true;
 }

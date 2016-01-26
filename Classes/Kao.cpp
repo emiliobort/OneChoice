@@ -1,6 +1,7 @@
 #include "Prueba.h"
 #include "MainMenuScene.h"
 #include "Kao.h"
+#include "Global.h"
 #include "SelectScene.h"
 
 //Con definimos las variables globales para luego inicializarlas al valor que queramos.
@@ -123,9 +124,11 @@ bool Kao::init()
 
 	addChild(background, 0);
 
-
-
-	
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/kao.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
 
 	return true;
 }

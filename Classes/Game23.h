@@ -26,6 +26,7 @@ class Game23 : public Layer
 	bool piece6_placed = false;
 
 	int _time = 0;
+	int aux = 0;
 	Label *_timer;
 
 public:
@@ -42,7 +43,7 @@ public:
 	CREATE_FUNC(Game23);
 
 	void naziDead(int naziID);
-	bool isFinished();
+	void isFinished(float dt);
 
 	void goToOptionA(Ref *pSender);
 

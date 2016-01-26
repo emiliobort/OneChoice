@@ -47,39 +47,39 @@ void Game23::naziDead(int naziID)
 		
 		break;
 	case 4:
+		sacos8->runAction(fadeOut);
 		muertos++;
 		
 		break;
 	default:
 		break;
 	}
+	if (muertos == 4)
+		this->schedule(schedule_selector(Game23::isFinished), 1.0);
 	return;
 }
 
-bool Game23::isFinished()
+void Game23::isFinished(float dt)
 {
-	return false;
+	aux++;
+	if (aux == 3) {
+		Global::_game23 = 1;
+		goToOptionA(this);
+	}
 }
 
 void Game23::timer(float dt) {
-	_time++;
+	if (muertos < 4) {
+		_time++;
 
-	String *tiempo = String::createWithFormat("%d", Global::_max_time - _time);
-	_timer->setString(tiempo->getCString());
+		String *tiempo = String::createWithFormat("%d", Global::_max_time - _time);
+		_timer->setString(tiempo->getCString());
 
-	if (_time == Global::_max_time)
-	{
-		if (muertos == 4)
-		{
-			Global::_game23 = 1;
-			goToOptionA(this);
-		}
-		else
+		if (_time == Global::_max_time)
 		{
 			Global::_game23 = -1;
 			goToOptionB(this);
 		}
-
 	}
 }
 
@@ -223,6 +223,14 @@ bool Game23::init()
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game23::timer), 1.0);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, sacos1);
+
+	Global::phase = 0;
+
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/hitler.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
 
 	return true;
 }

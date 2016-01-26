@@ -26,35 +26,40 @@ Scene* SelectScene::createScene()
 }
 
 void SelectScene::startGame(Ref *pSender){
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game11::createScene();
 
 	Director::getInstance()->replaceScene(TransitionProgressInOut::create(1.0, scene));;
 }
 
 void SelectScene::MainMenuScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));;
 }
 
 void SelectScene::goToGame12(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game12::createScene();
 
 	Director::getInstance()->replaceScene(TransitionProgressOutIn::create(1.0, scene));;
 }
 
 void SelectScene::goToGame13(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton2.mp3");
 	auto scene = Game13::createScene();
 
 	Director::getInstance()->replaceScene(TransitionProgressInOut::create(1.0, scene));;
 }
 
 void SelectScene::goToSelectScene2(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = SelectScene2::createScene();
 
 	Director::getInstance()->replaceScene(TransitionSlideInR::create(1.0, scene));;
@@ -178,6 +183,12 @@ bool SelectScene::init()
 
 	//audio
 
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/ButtonClick.wav");
+	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+	if (Global::musicPlayed && Global::phase !=1)
+	{
+		audio->playBackgroundMusic("audio/juego/levels.mp3", true);
+		Global::phase = 1;
+		audio->setBackgroundMusicVolume(0.7f);
+	}	
 	return true;
 }

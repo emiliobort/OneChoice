@@ -62,7 +62,6 @@ void Game13::updatePosition(int i)
 }
 
 void Game13::setPhysicisWorld(PhysicsWorld *world) {
-	mWorld = world;
 	//mWorld->setGravity(Vec2::ZERO);
 }
 
@@ -280,9 +279,17 @@ bool Game13::init()
 
 	this->scheduleUpdate();
 
-	this->schedule(schedule_selector(Game13::spawnEnemy), 0.5f);
+	this->schedule(schedule_selector(Game13::spawnEnemy), 0.8f);
 
 	this->schedule(schedule_selector(Game13::animJugador), 0.3f);
+
+	Global::phase = 0;
+
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/cesar.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
 
 	return true;
 }

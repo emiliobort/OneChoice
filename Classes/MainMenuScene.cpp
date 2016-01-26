@@ -27,7 +27,8 @@ Scene* MainMenuScene::createScene()
 
 
 void MainMenuScene::Kao(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 
 	auto scene = Kao::createScene();
 
@@ -35,8 +36,11 @@ void MainMenuScene::Kao(Ref *pSender) {
 }
 
 void MainMenuScene::optionScene(Ref *pSender) {
-	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	
+	Global::phase = 0;
+
 	auto scene = OptionsScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionShrinkGrow::create(1.0, scene));;
@@ -84,16 +88,30 @@ bool MainMenuScene::init()
 
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/boton1.mp3");
 	CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect("audio/boton2.mp3");
-	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/starwars.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/inicio.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/kao.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/levels.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/neo.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/egipcio.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/cesar.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/arturo.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/edison.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/hitler.mp3");
+	CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("audio/juego/fin.mp3");
+
+
 
 
 
 	//background music
 
 	auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-	if (!audio->isBackgroundMusicPlaying() && Global::musicPlayed) 
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1.0);
+
+	if (Global::musicPlayed && Global::phase != 0 || Global::phase==2)
 	{
-		//audio->playBackgroundMusic("audio/starwars.mp3",true);
+		audio->playBackgroundMusic("audio/juego/inicio.mp3",true);
+		Global::phase = 0;
 		audio->setBackgroundMusicVolume(0.7f);
 	}
 

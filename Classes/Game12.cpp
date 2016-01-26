@@ -263,5 +263,13 @@ bool Game12::init()
 	this->schedule(schedule_selector(Game12::timer), 1.0);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, piece1);
 
+	Global::phase = 0;
+
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/egipcio.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
+
 	return true;
 }

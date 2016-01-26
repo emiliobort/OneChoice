@@ -1,6 +1,7 @@
 #include "GameOverScene.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 

@@ -17,11 +17,13 @@ Scene* Game22::createScene()
 }
 
 void Game22::goToOptionA(Ref *pSender) {
+	Global::_game22 = 1;
 	auto scene = Game22a::createScene();
 	Director::getInstance()->pushScene(scene);
 }
 
 void Game22::goToOptionB(Ref *pSender) {
+	Global::_game22 = -1;
 	auto scene = Game22b::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
@@ -71,67 +73,75 @@ bool Game22::onTheWay(float mouseX, float mouseY)
 
 void Game22::check(float mouseX, float mouseY)
 {
-	switch (checkpoint)
-	{
-	case 0:
-		if (mouseX < 545 && mouseX >= 475 && mouseY < 375 && mouseY >= 305)
-			checkpoint = 1;
-		break;
-	case 1:
-		if (mouseX < 545 && mouseX>= 475 && mouseY < 690 && mouseY>= 630)
-			checkpoint = 2;
-		break;
-	case 2:
-		if (mouseX < 775 && mouseX>= 705 && mouseY < 690 && mouseY>= 630)
-			checkpoint = 3;
-		break;
-	case 3:
-		if (mouseX < 775 && mouseX>= 705 && mouseY < 245 && mouseY>= 185)
-			checkpoint = 4;
-		break;
-	case 4:
-		if (mouseX < 570 && mouseX>= 500 && mouseY < 245 && mouseY>= 185)
-			checkpoint = 5;
-		break;
-	case 5:
-		if (mouseX < 570 && mouseX>= 500 && mouseY < 100 && mouseY>= 50)
-			checkpoint = 6;
-		break;
-	case 6:
-		if (mouseX < 1100 && mouseX>= 1030 && mouseY < 100 && mouseY>= 50)
-			checkpoint = 7;
-		break;
-	case 7:
-		if (mouseX < 1100 && mouseX>= 1030 && mouseY >= 420) {
-			checkpoint = 8;
+	if (switchOn) {
+		switch (checkpoint)
+		{
+		case 0:
+			if (mouseX < 545 && mouseX >= 475 && mouseY < 375 && mouseY >= 305)
+				checkpoint = 1;
+			break;
+		case 1:
+			if (mouseX < 545 && mouseX >= 475 && mouseY < 690 && mouseY >= 630)
+				checkpoint = 2;
+			break;
+		case 2:
+			if (mouseX < 775 && mouseX >= 705 && mouseY < 690 && mouseY >= 630)
+				checkpoint = 3;
+			break;
+		case 3:
+			if (mouseX < 775 && mouseX >= 705 && mouseY < 245 && mouseY >= 185)
+				checkpoint = 4;
+			break;
+		case 4:
+			if (mouseX < 570 && mouseX >= 500 && mouseY < 245 && mouseY >= 185)
+				checkpoint = 5;
+			break;
+		case 5:
+			if (mouseX < 570 && mouseX >= 500 && mouseY < 100 && mouseY >= 50)
+				checkpoint = 6;
+			break;
+		case 6:
+			if (mouseX < 1100 && mouseX >= 1030 && mouseY < 100 && mouseY >= 50)
+				checkpoint = 7;
+			break;
+		case 7:
+			if (mouseX < 1100 && mouseX >= 1030 && mouseY >= 420) {
+				checkpoint = 8;
 
+			}
+			break;
+		case 8:
+			bombilla->setTexture("images/Game2.2/bombilla_on.png");
+			this->schedule(schedule_selector(Game22::isFinished), 1.0);
+			gameOn = false;
+			break;
+		default:
+			break;
 		}
-		break;
-	case 8:
-
-		break;
-	default:
-		break;
 	}
-
 	return;
 }
 
-bool Game22::isFinished()
+void Game22::isFinished(float dt)
 {
-	return false;
+	aux++;
+	if (aux == 3)
+		goToOptionA(this);
+
 }
 
 void Game22::timer(float dt) {
-	_time++;
+	if (gameOn) {
+		_time++;
 
-	String *tiempo = String::createWithFormat("%d", Global::_max_time*2 - _time);
-	_timer->setString(tiempo->getCString());
+		String *tiempo = String::createWithFormat("%d", Global::_max_time * 2 - _time);
+		_timer->setString(tiempo->getCString());
 
-	if (_time == Global::_max_time*2)
-	{
-		Global::_game22 = -1;
-		goToOptionB(this);
+		if (_time == Global::_max_time * 2)
+		{
+			Global::_game22 = -1;
+			goToOptionB(this);
+		}
 	}
 }
 
@@ -177,6 +187,7 @@ void Game22::onKeyPressed(EventKeyboard::KeyCode keyCode, Event *event) {
 	}
 }
 
+
 bool Game22::init()
 {
 	if (!Layer::init())
@@ -221,8 +232,10 @@ bool Game22::init()
 		
 		float distance;
 		distance = this->interruptor->getPosition().getDistance(touch->getLocation());
-		if (distance < 30)
+		if (distance < 50) {
 			interruptor->setTexture("images/Game2.2/interruptor_on.png");
+			switchOn = true;
+		}
 		
 	};
 
@@ -237,6 +250,14 @@ bool Game22::init()
 	addChild(_timer, 1);
 	this->schedule(schedule_selector(Game22::timer), 1.0);
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, interruptor);
+
+	Global::phase = 0;
+
+	if (Global::musicPlayed) {
+		auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+		audio->playBackgroundMusic("audio/juego/edison.mp3", true);
+		audio->setBackgroundMusicVolume(0.7f);
+	}
 
 	return true;
 }

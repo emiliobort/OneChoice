@@ -24,7 +24,8 @@ Scene* OptionsScene::createScene()
 
 
 void OptionsScene::goToMainMenu(Ref *pSender) {
-	//CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/ButtonClick.wav");
+	if (Global::musicPlayed)
+		CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("audio/boton1.mp3");
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionShrinkGrow::create(1.0, scene));;
@@ -192,147 +193,6 @@ bool OptionsScene::init()
 			return;
 		}
 	};
-
-	/*
-	event_listener->onTouchesBegan = [=](const std::vector<Touch*>& pTouches, Event* event)
-	{
-		auto touch = *pTouches.begin();
-		auto openGl_location = touch->getLocation();
-		float distance;
-
-		distance = this->easy->getPosition().getDistance(touch->getLocation());
-		if (distance < 30) {
-			piece_selected = 1;
-			return;
-		}
-
-		distance = this->medium->getPosition().getDistance(touch->getLocation());
-		if (distance < 30) {
-			piece_selected = 2;
-			return;
-		}
-
-		distance = this->hard->getPosition().getDistance(touch->getLocation());
-		if (distance < 30) {
-			piece_selected = 3;
-			return;
-		}
-
-		distance = this->music->getPosition().getDistance(touch->getLocation());
-		if (distance < 30) {
-			piece_selected = 4;
-			return;
-		}
-
-		distance = this->dificultad->getPosition().getDistance(touch->getLocation());
-		if (distance < 30) {
-			piece_selected = 5;
-			return;
-		}
-
-	};
-
-	event_listener->onTouchesEnded = [=](const std::vector<Touch*>& pTouches, Event* event) {
-
-
-		switch (piece_selected)
-		{
-		case 1:
-			CCLOG("%f %f", easy->getPositionX(), easy->getPositionY());
-			
-			break;
-
-		case 2:
-			CCLOG("%f %f", medium->getPositionX(), medium->getPositionY());
-			
-			break;
-		case 3:
-			CCLOG("%f %f", hard->getPositionX(), hard->getPositionY());
-			
-			break;
-		case 4:
-			CCLOG("%f %f", music->getPositionX(), music->getPositionY());
-			
-			break;
-		case 5:
-			CCLOG("%f %f", dificultad->getPositionX(), dificultad->getPositionY());
-			
-			break;
-		default:
-			break;
-		}
-
-		piece_selected = 0;
-
-	};
-
-	event_listener->onTouchesMoved = [=](const std::vector<Touch*>& pTouches, Event* event) {
-
-		auto touch = *pTouches.begin();
-		auto openGl_location = touch->getLocation();
-
-		auto move_action = MoveTo::create(0.001f, openGl_location);
-
-		if (piece_selected == 1) {
-			easy->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 2) {
-			medium->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 3) {
-			hard->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 4) {
-			music->setPosition(touch->getLocation());
-		}
-		if (piece_selected == 5) {
-			dificultad->setPosition(touch->getLocation());
-		}
-	};
-
-	*/
-
-	/*__String *text = __String::createWithFormat("Game11 %d   ", Global::_game11);
-	_game1_1 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_game1_1->setTextColor(Color4B::BLACK);
-	_game1_1->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 30));
-
-	addChild(_game1_1, 2);
-
-	text = __String::createWithFormat("Game12 %d   ", Global::_game12);
-	_game1_2 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_game1_2->setTextColor(Color4B::BLACK);
-	_game1_2->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 60));
-
-	addChild(_game1_2, 2);
-
-	text = __String::createWithFormat("Game13 %d   ", Global::_game13);
-	_game1_3 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_game1_3->setTextColor(Color4B::BLACK);
-	_game1_3->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 90));
-
-	addChild(_game1_3, 2);
-
-	text = __String::createWithFormat("Game21 %d   ", Global::_game21);
-	_game2_1 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_game2_1->setTextColor(Color4B::BLACK);
-	_game2_1->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 120));
-
-	addChild(_game2_1, 2);
-
-	text = __String::createWithFormat("Game22 %d   ", Global::_game22);
-	_game2_2 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_game2_2->setTextColor(Color4B::BLACK);
-	_game2_2->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 150));
-
-	addChild(_game2_2, 2);
-
-	text = __String::createWithFormat("Game23 %d   ", Global::_game23);
-	_game2_3 = Label::createWithTTF(text->getCString(), "fonts/Marker Felt.ttf", 24);
-	_game2_3->setTextColor(Color4B::BLACK);
-	_game2_3->setPosition(Vec2(visibleSize.width - 150, visibleSize.height - 180));
-
-	addChild(_game2_3, 2);*/
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(event_listener, easy);
 
